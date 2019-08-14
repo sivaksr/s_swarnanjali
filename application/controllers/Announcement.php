@@ -347,6 +347,34 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
 			redirect('home');
 		}
 	}
+	public  function smspost(){
+		if($this->session->userdata('userdetails'))
+		{
+			$post=$this->input->post();
+			if(count($post['stu_ids'])>0){
+				foreach($post['stu_ids'] as $li){
+						$username = $this->config->item('smsusername');
+						$pass     = $this->config->item('smspassword');
+						$sender   = $this->config->item('sender');
+						$msg      = $post['msg'];
+						$ch2 = curl_init();
+						curl_setopt($ch2, CURLOPT_URL, "http://trans.smsfresh.co/api/sendmsg.php");
+						curl_setopt($ch2, CURLOPT_POST, 1);
+						curl_setopt($ch2, CURLOPT_POSTFIELDS, 'user=' . $username . '&pass=' . $pass . '&sender=' . $sender . '&phone=' .$li. '&text=' . $msg . '&priority=ndnd&stype=normal');
+						curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+						$server_output = curl_exec($ch2);
+						//echo '<pre>';print_r($server_output);
+						curl_close($ch2);
+				}
+			}
+			$this->session->set_flashdata('success',"Message successfully sent");
+			redirect('announcement/smstextemail');
+			
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	

@@ -534,7 +534,7 @@ class Student_model extends CI_Model
    
    
    public function class_wise_student_list($class_id){
-	 $this->db->select('users.class_name,users.name,users.u_id')->from('users');
+	 $this->db->select('users.class_name,users.name,users.u_id,users.mobile')->from('users');
 		 $this->db->where('class_name',$class_id);
 		 $this->db->where('role_id',7);
 		 $this->db->where('status',1);

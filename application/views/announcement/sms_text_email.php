@@ -64,10 +64,8 @@
 							<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Student Name</label>
-								<div class="">
-									 <select name="student_name[]"  id="student_name" class="form-control select2" multiple="multiple" >
-									<option value="">Select</option>
-                                   </select>
+								<div class="" id="student_name">
+									 
 								</div>
 							</div>
                         </div>	
@@ -138,7 +136,7 @@ $(document).ready(function() {
                 }
             },
 			
-            'student_name[]': {
+            'stu_ids[]': {
                 validators: {
                     notEmpty: {
                         message: 'Student Name is required'
@@ -191,10 +189,10 @@ function get_student_list(class_id){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
 							$('#student_name').empty();
-							$('#student_name').append("<option value''>select</option>","<option value'ALL'>ALL</option>");
+							$('#student_name').append("<input type='checkbox' id='checkall' onClick='selectAll(this)'  />Select All<br>");
 							for(i=0; i < parsedData.list.length; i++) {
-								console.log(parsedData.list);
-							$('#student_name').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+							//$('#student_name').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+							$('#student_name').append("<input type='checkbox' id='stu_ids' class='checkbox1' name='stu_ids[]' value="+parsedData.list[i].mobile+">&nbsp;&nbsp;&nbsp;"+parsedData.list[i].name+"&nbsp;<br>");                      
                     
 								
 							 
@@ -233,5 +231,10 @@ $(document).ready(function(){
   $(function () {
     $("#example").DataTable();
   });
+  function selectAll(source) {
+		checkboxes = document.getElementsByName('stu_ids[]');
+		for(var i in checkboxes)
+			checkboxes[i].checked = source.checked;
+	}
 </script>
 
