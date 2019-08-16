@@ -31,7 +31,7 @@
              <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
                                        <form id="defaultForm" method="POST"  class="" action="<?php echo base_url('bonafidecatecertificate/addpost');?>">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class=" control-label">Title</label>
                                                         <div class="">
@@ -42,7 +42,15 @@
                                                 </div>
                                                 
                                                 
-                                               
+                                               <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class=" control-label">Adminssion Number</label>
+                                                        <div class="">
+														<input type="text" class="form-control" id="adminssion_number" name="adminssion_number"  placeholder="Enter Adminssion Number" value="<?php echo isset($details['adminssion_number'])?$details['adminssion_number']:''; ?>">
+												
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label class=" control-label">Paragraph</label>
@@ -94,6 +102,13 @@ $(document).ready(function() {
                  validators: {
 					notEmpty: {
 						message: 'Title is required'
+					}
+				}
+            },
+			adminssion_number: {
+                 validators: {
+					notEmpty: {
+						message: 'Adminssion Number is required'
 					}
 				}
             },

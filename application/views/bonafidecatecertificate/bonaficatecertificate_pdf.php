@@ -142,7 +142,7 @@
 				<strong>Sr.No</strong>:
 				
 				</td>
-                <td style="text-align:center;"><strong>Admission Number</strong>:</td>
+                <td style="text-align:center;"><strong>Admission Number</strong>:<?php echo isset($details['adminssion_number'])?$details['adminssion_number']:''?></td>
             </tr>
 			</table>
 			<tr class="top">

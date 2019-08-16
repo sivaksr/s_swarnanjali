@@ -38,6 +38,7 @@ public function __construct()
 				$save_data=array(
 				's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 				'title'=>isset($post['title'])?$post['title']:'',
+				'adminssion_number'=>isset($post['adminssion_number'])?$post['adminssion_number']:'',
 				'paragraph'=>isset($post['paragraph'])?$post['paragraph']:'',
 				'status'=>1,
 				'create_at'=>date('Y-m-d H:i:s'),
