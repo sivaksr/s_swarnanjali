@@ -59,7 +59,7 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
-		  <label class=" control-label">Stop From</label>
+		  <label class=" control-label">From Stop</label>
 			<select id="stops" name="stops[]"  class="form-control select">
 			<option value="">Select</option>
 			<?php foreach ($stops as $list){ ?>
@@ -126,7 +126,7 @@
                 <tr>
                   <th>Route Number</th>
                   <th>From Stop</th>
-                  <th>Stop To </th>
+                  <th>To Stop</th>
                   <th>Amount </th>
                   <th>Status</th>
                   <th>Action</th>

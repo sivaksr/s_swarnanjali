@@ -162,7 +162,7 @@ class Student_model extends CI_Model
 	}
 	
 	public  function get_class_wise_student_list($class_id){
-		$this->db->select('class_list.name as classname,class_list.section,users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,users.u_id,users.name,users.roll_number,users.parent_name,users.mobile,users.email')->from('users');
+		$this->db->select('class_list.name as classname,class_list.section,users.address,users.current_city,users.current_state,users.current_country,users.current_pincode,users.u_id,users.name,users.roll_number,users.parent_name,users.mobile,users.email,users.parent_email')->from('users');
 		$this->db->join('class_list ', 'class_list.id = users.class_name', 'left');
 		$this->db->where('users.class_name',$class_id);
 		$this->db->where('users.role_id',7);

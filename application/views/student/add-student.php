@@ -254,7 +254,7 @@
 							</div>
 							
 							<div class="clearfix">&nbsp;</div>
-							<h3 class="box-title"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Parent Detail</h3>
+							<h3 class="box-title"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Parent Details</h3>
 						<div class="form-group">
                             <label class=" control-label"> Name of the Parent</label>
                             <div class="">

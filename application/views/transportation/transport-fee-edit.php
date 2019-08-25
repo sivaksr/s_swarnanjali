@@ -41,6 +41,7 @@
 
 		<div class="col-sm-3 nopadding">
 			<div class="form-group">
+			<label class=" control-label">Route Number</label>
 			<select id="route_id" name="route_id" onchange="get_stops_route_list0(this.value);" class="form-control" >
 				<option value="">Select</option>
 				<?php foreach ($route as $list){ ?>
@@ -55,6 +56,7 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
+		  <label class=" control-label">From Stop</label>
 			<select id="stops" name="stops"  class="form-control select">
 			<option value="">Select</option>
 				<?php foreach ($route_stops as $list){ ?>
@@ -69,6 +71,7 @@
 		</div>
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
+		   <label class=" control-label">To Stop</label>
 			<select id="to_stops" name="to_stops"     class="form-control select">
 			<option value="">Select</option>
 			<?php foreach ($route_stops as $list){ ?>
@@ -91,6 +94,7 @@
 
 		<div class="col-sm-3 nopadding">
 		  <div class="form-group">
+		  <label class=" control-label">Amount</label>
 			<div class="input-group">
 				<input class="form-control" name="amount" class="form-control select"  type="text" value="<?php echo isset($transportion_details['amount'])?$transportion_details['amount']:''; ?>" placeholder="Amount / Anual " />
 

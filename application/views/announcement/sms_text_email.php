@@ -7,7 +7,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Principal assign instructions for teachers</h3>
+                        <h3 class="box-title">Principal assigned instructions for students</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->

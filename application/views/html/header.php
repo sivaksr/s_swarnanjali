@@ -457,7 +457,7 @@
 			
 			<li class="treeview">
 				  <a href="<?php echo base_url('student/lists'); ?>">
-					<i class="fa fa-user"></i> <span>Students list </span>
+					<i class="fa fa-user"></i> <span>Students List </span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>

@@ -102,6 +102,7 @@ class Subject_model extends CI_Model
 	$this->db->select('class_subjects.id')->from('class_subjects');
 		$this->db->where('class_subjects.class_id',$class_id);
 		$this->db->where('class_subjects.subject',$id);
+		$this->db->where('class_subjects.status',1);
 		return $this->db->get()->row_array();
 	}
 	 

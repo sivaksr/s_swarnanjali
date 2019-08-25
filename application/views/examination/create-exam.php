@@ -21,7 +21,7 @@
 												<option value="">Select exam Type</option>
 												<option value="Assignments"> Assignments </option>
 												<option value="Mid">Mid</option>
-												<option value="Quterly"> Quterly</option>
+												<option value="Quarterly">Quarterly</option>
 												<option value="Half Yearly"> Half Yearly</option>
 												<option value="Yearly"> Yearly </option>
 											</select>
@@ -91,19 +91,19 @@
 </div>
 <div class="col-sm-2 nopadding">
   <div class="form-group">
-      <input type="text" class="form-control" id="exam_date" name="exam_date[]"  placeholder="EX:DD-MM-YYYY">
+      <input type="date"   class="form-control"  autocomplete="off" name="exam_date[]"  placeholder="EX:DD-MM-YYYY">
   </div>
 </div>
 <div class="col-sm-2 nopadding">
   <div class="form-group">
-    <input type="text" class="form-control" id="start_time" name="start_time[]"  placeholder="EX:10 AM">
+    <input type="time" class="form-control"   id="time" autocomplete="off" name="start_time[]"  placeholder="EX:10 AM">
   </div>
 </div>
 
 <div class="col-sm-2 nopadding">
   <div class="form-group">
     <div class="input-group">
-         <input type="text" class="form-control" id="to_time" name="to_time[]"  placeholder="EX:01 PM">
+         <input type="time" class="form-control"  autocomplete="off" name="to_time[]"  placeholder="EX:01 PM">
 
       <div class="input-group-btn">
         <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
@@ -121,7 +121,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit" class="btn btn-primary pull-right " name="signup" value="Sign up">Create Exam</button>
+							  <button type="submit"  class="btn btn-primary pull-right " name="signup" value="Sign up">Create Exam</button>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -241,7 +241,7 @@ function education_fields() {
     var divtest = document.createElement("div");
 	divtest.setAttribute("class", "form-group removeclass"+room);
 	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="class_id" name="class_id[]" onchange="get_class_wise_subjects_list(this.value,'+room+');" class="form-control" ><option value="">Select Class</option><?php foreach ($class_list as $list){ ?><option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option><?php }?></select></div></div>  <div class="col-sm-3 nopadding"><div class="form-group"> <select id="subject'+room+'" name="subject[]" class="form-control select"><option value="">Select Subject</option></select></div></div><div class="col-sm-2 nopadding"><div class="form-group"><input  name="exam_date[]" class="form-control select"  type="text" placeholder="EX:DD-MM-YYYY" /></div></div><div class="col-sm-2 nopadding"><div class="form-group"><input  name="start_time[]" class="form-control select"  type="text" placeholder="EX:10 AM" /></div></div><div class="col-sm-2 nopadding"><div class="form-group"><div class="input-group"> <input class="form-control" name="to_time[]" class="form-control select"  type="text" placeholder="EX:1 PM" /><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <select id="class_id" name="class_id[]" onchange="get_class_wise_subjects_list(this.value,'+room+');" class="form-control" ><option value="">Select Class</option><?php foreach ($class_list as $list){ ?><option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option><?php }?></select></div></div>  <div class="col-sm-3 nopadding"><div class="form-group"> <select id="subject'+room+'" name="subject[]" class="form-control select"><option value="">Select Subject</option></select></div></div><div class="col-sm-2 nopadding"><div class="form-group"><input  type="date" class="form-control"  autocomplete="off" name="exam_date[]"  placeholder="EX:DD-MM-YYYY" /></div></div><div class="col-sm-2 nopadding"><div class="form-group"><input  name="start_time[]" class="form-control"  type="time" placeholder="EX:10 AM" /></div></div><div class="col-sm-2 nopadding"><div class="form-group"><div class="input-group"> <input class="form-control" name="to_time[]" class="form-control "  type="time" placeholder="EX:1 PM" /><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
     
     objTo.appendChild(divtest)
 	
@@ -274,7 +274,7 @@ function admindedeletemsg(id){
 	
 }
 $(document).ready(function() {
-   
+  
     $('#addexam_form').bootstrapValidator({
 		fields: {
             exam_type: {
@@ -313,12 +313,14 @@ $(document).ready(function() {
                     notEmpty: {
                         message: 'Start Time is required'
                     }
+					
                 }
             },'to_time[]': {
                 validators: {
                     notEmpty: {
                         message: 'End Time is required'
                     }
+					
                 }
             },room_no: {
                 validators: {
@@ -339,7 +341,9 @@ $(document).ready(function() {
             }
         }
     });
-
+     $('.datepicker').on('changeDate ', function(e) {
+		$('#addexam_form').bootstrapValidator('revalidateField', 'exam_date[]');
+		});
     // Validate the form manually
     $('#validateBtn').click(function() {
         $('#defaultForm').bootstrapValidator('validate');
@@ -442,8 +446,13 @@ function get_class_wise_subjects_list(class_id,divId){
            });
 	   }
 }
+
+
 </script>
 <script>
+
+
+
   $(function () {
     $("#example1").DataTable();
    

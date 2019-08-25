@@ -9,7 +9,7 @@
                   <th>Admission Number</th>
                   <th>Partent</th>
                   <th>Contact No</th>
-                  <th>Email</th>
+                  <th>Partent Email</th>
                   <th>Address</th>
                   
                 </tr>
@@ -22,7 +22,7 @@
 				  <td><?php echo $list['roll_number']; ?></td>
                   <td><?php echo $list['parent_name']; ?></td>
                   <td><?php echo $list['mobile']; ?></td>
-                  <td><?php echo $list['email']; ?></td>
+                  <td><?php echo $list['parent_email']; ?></td>
                   <td>
 					  <?php echo isset($list['address'])?$list['address'].',':''; ?>
 					  <?php echo isset($list['current_city'])?$list['current_city'].',':''; ?>

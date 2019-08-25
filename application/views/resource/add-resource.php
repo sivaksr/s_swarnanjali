@@ -245,7 +245,7 @@
 											  </div>
 											  <div class="row">
 												  <div class="col-md-6 col-xs-6 col-sm-6">
-													<strong>Qalification</strong>
+													<strong>Qualification</strong>
 												  </div>
 												  <div class="col-md-6 col-xs-6 col-sm-6">
 												  <?php echo isset($list['qalification'])?$list['qalification']:''; ?>

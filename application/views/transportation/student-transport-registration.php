@@ -66,7 +66,7 @@
 						
 						<div class="col-md-4">
 							<div class="form-group">
-							<label class=" control-label">Stop From</label>
+							<label class=" control-label">From Stop</label>
 							<select id="stop_strat" name="stop_strat" onchange="get_route_stops_end_student(this.value);" class="form-control" >
 							<option value="">Select</option>
 							<?php foreach ($stops_student as $list){ ?>
@@ -196,8 +196,8 @@
                   <th>Class</th>
                   <th>Student</th>
                   <th>Route Name</th>
-                  <th>Stop Form</th>
-                  <th>Stop to</th>
+                  <th>From Stop</th>
+                  <th>To Stop</th>
                   <th>Amount / Anual</th>
 				  <th>Status</th>
                   <th>Action</th>

@@ -46,7 +46,7 @@
 
 												<option value="Mid"<?php if($detail['exam_type']=='Mid'){ echo "selected"; } ?>>Mid</option>
 
-												<option value="Quterly" <?php if($detail['exam_type']=='Quterly'){ echo "selected"; } ?>> Quterly</option>
+												<option value="Quarterly" <?php if($detail['exam_type']=='Quarterly'){ echo "selected"; } ?>> Quarterly</option>
 
 												<option value="Half Yearly" <?php if($detail['exam_type']=='Half Yearly'){ echo "selected"; } ?>> Half Yearly</option>
 
@@ -194,13 +194,13 @@
 
 		<?php foreach($subject_list as $list){ ?>
 
-		<?php if($detail['subject']==$list['subject']){ ?>
+		<?php if($detail['subject']==$list['id']){ ?>
 
-		<option selected value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
+		<option selected value="<?php echo $list['id']; ?>"><?php echo $list['subject']; ?></option>
 
 		<?php }else{ ?>
 
-			<option value="<?php echo $list['subject']; ?>"><?php echo $list['subject']; ?></option>
+			<option value="<?php echo $list['id']; ?>"><?php echo $list['subject']; ?></option>
 
 			<?php } ?>
 
@@ -218,7 +218,7 @@
 
   <div class="form-group">
 
-      <input type="text" class="form-control" id="exam_date" name="exam_date"  placeholder="EX:DD-MM-YYYY" value="<?php echo isset($detail['exam_date'])?$detail['exam_date']:''?>">
+      <input type="date" class="form-control" id="exam_date" name="exam_date"  placeholder="EX:DD-MM-YYYY" value="<?php echo isset($detail['exam_date'])?$detail['exam_date']:''?>">
 
   </div>
 
@@ -228,7 +228,7 @@
 
   <div class="form-group">
 
-    <input type="text" class="form-control" id="start_time" name="start_time" placeholder="EX:10 AM" value="<?php echo isset($detail['start_time'])?$detail['start_time']:''?>">
+    <input type="time" class="form-control" id="start_time" name="start_time" placeholder="EX:10 AM" value="<?php echo isset($detail['start_time'])?$detail['start_time']:''?>">
 
   </div>
 
@@ -242,7 +242,7 @@
 
     <div class="input-group">
 
-         <input type="text" class="form-control" id="to_time" name="to_time" placeholder="EX:01 PM" value="<?php echo isset($detail['to_time'])?$detail['to_time']:''?>">
+         <input type="time" class="form-control" id="to_time" name="to_time" placeholder="EX:01 PM" value="<?php echo isset($detail['to_time'])?$detail['to_time']:''?>">
 
 
 	  <!--<div class="input-group-btn">
