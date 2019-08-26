@@ -177,6 +177,7 @@
                   <th>Day</th>
                   <th>Slot Time</th>
                   <th>Class</th>
+                  <th>Teacher Module</th>
                   <th>Subject</th>
                   <th>Teacher</th>
 				  <th>Created Date</th>
@@ -192,6 +193,7 @@
                   <td><?php echo $list['day']; ?></td>
                   <td><?php echo $list['times']; ?></td>
                   <td><?php echo $list['classname']; ?></td>
+                  <td><?php echo $list['modules']; ?></td>
                   <td><?php echo $list['subject']; ?></td>
                   <td><?php echo $list['name']; ?></td>
                   <td><?php echo date('d-m-Y',strtotime(htmlentities($list['create_at'])));?></td>

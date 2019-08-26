@@ -83,7 +83,33 @@ public function __construct()
 			redirect('home');
 		}	
 	}
-	
+	 public function get_teachers_list(){
+	if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==12){
+					$post=$this->input->post();
+					
+					$teachers_list=$this->Principal_model->get_teachers_list($post['teacher_modules']);
+					//echo '<pre>';print_r($teachers_list);exit;
+					if(count($teachers_list)>0){
+						$data['msg']=1;
+						$data['list']=$teachers_list;
+						echo json_encode($data);exit;	
+					}else{
+						$data['msg']=0;
+						echo json_encode($data);exit;
+					}
+					
+			}else{
+				$this->session->set_flashdata('error',"you don't have permission to access");
+				redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	

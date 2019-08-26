@@ -38,7 +38,7 @@
                                             <div class="clearfix"> </div>
                                             <div class="col-md-12">
                                                 <div class="">
-                                                    <button type="submit" class="btn btn-primary " id="signup" name="signup" value="submit">Add</button>
+                                                    <button type="submit" class="btn btn-primary " id="signup" name="signup" value="submit">Search</button>
                                                 </div>
                                             </div>
                                             <div class="clearfix">&nbsp;</div>

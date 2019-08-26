@@ -7,7 +7,7 @@
                   <th>Class</th>
                   <th>Name</th>
                   <th>Admission Number</th>
-                  <th>Partent</th>
+                  <th>Parent Name</th>
                   <th>Contact No</th>
                   <th>Partent Email</th>
                   <th>Address</th>
@@ -38,9 +38,9 @@
 				 <th>Class</th>
                  <th>Name</th>
                   <th>Admission Number</th>
-                  <th>Partent</th>
+                  <th>Parent Name</th>
                   <th>Contact No</th>
-                  <th>Email</th>
+                  <th>Partent Email</th>
                   <th>Address</th>
                 </tr>
                 </tfoot>

@@ -11,10 +11,19 @@ class Examination_model extends CI_Model
 	
 	public  function get_subject_list($s_id){
 		$this->db->select('class_subjects.id,class_subjects.subject')->from('class_subjects');
-		$this->db->join('schools ', 'schools.s_id = class_subjects.s_id', 'left');
+		//$this->db->join('schools ', 'schools.s_id = class_subjects.s_id', 'left');
 		$this->db->where('class_subjects.s_id',$s_id);
+		$this->db->group_by('class_subjects.id');
 		return $this->db->get()->result_array();
 	}
+	public  function get_all_subject_list($s_id,$class_id){
+		$this->db->select('class_subjects.id,class_subjects.subject')->from('class_subjects');
+		$this->db->where('class_subjects.s_id',$s_id);
+		$this->db->group_by('class_subjects.id');
+		$this->db->where('class_subjects.class_id',$class_id);
+		return $this->db->get()->result_array();
+	}
+	
 	public  function get_time_list($s_id){
 		$this->db->select('class_times.id,class_times.form_time,class_times.to_time')->from('class_times');
 		$this->db->where('class_times.s_id',$s_id);
@@ -70,7 +79,7 @@ class Examination_model extends CI_Model
 		$this->db->select('exam_type,id')->from('exam_list');
 		$this->db->where('exam_list.s_id',$id);
 		$this->db->where('exam_list.status',1);
-		$this->db->group_by('exam_list.exam_type',$id);
+		$this->db->group_by('exam_list.exam_type');
 		return $this->db->get()->result_array();   
 	}
 	public  function get_student_list($claas_id){
@@ -113,11 +122,32 @@ class Examination_model extends CI_Model
 		$this->db->where('class_id',$class_id);
 		return $this->db->get()->row_array(); 
 	}
+	
+	public  function chekck_update_marks($student_id,$s_id,$exam_id,$subject_id,$class_id){
+		$this->db->select('*')->from('exam_marks_list');
+		$this->db->where('student_id',$student_id);
+		$this->db->where('s_id',$s_id);
+		$this->db->where('exam_id',$exam_id);
+		$this->db->where('subject_id',$subject_id);
+		$this->db->where('class_id',$class_id);
+		return $this->db->get()->row_array(); 
+	}
 	public  function update_exam_mark($id,$data){
 		$this->db->where('id',$id);
 		return $this->db->update("exam_marks_list",$data);
 	}
-		
+	public function get_update_exam_marks($s_id,$class_id,$subject,$exam_type){
+	$this->db->select('class_list.name as classname,class_list.section,users.name,users.roll_number,exam_marks_list.marks_obtained,exam_marks_list.student_id,exam_marks_list.class_id,exam_marks_list.subject_id,exam_marks_list.exam_id,exam_marks_list.max_marks,exam_marks_list.remarks,class_subjects.subject,exam_list.exam_type')->from('exam_marks_list');
+		$this->db->join('users ', 'users.u_id = exam_marks_list.student_id', 'left');
+		$this->db->join('class_subjects ', 'class_subjects.id = exam_marks_list.subject_id', 'left');
+		$this->db->join('exam_list ', 'exam_list.id = exam_marks_list.exam_id', 'left');
+		$this->db->join('class_list ', 'class_list.id = exam_marks_list.class_id', 'left');
+		$this->db->where('exam_marks_list.s_id',$s_id);
+		$this->db->where('exam_marks_list.exam_id',$exam_type);
+		$this->db->where('exam_marks_list.subject_id',$subject);
+		$this->db->where('exam_marks_list.class_id',$class_id);
+		return $this->db->get()->result_array(); 
+	}	
 	public  function get_student_withmarks_list($s_id,$class_id,$subject_id,$exam_id,$student_id){
 		$this->db->select('class_list.name as classname,class_list.section,users.name,users.roll_number,exam_marks_list.marks_obtained,exam_marks_list.student_id,exam_marks_list.max_marks,exam_marks_list.remarks,class_subjects.subject,exam_list.exam_type')->from('exam_marks_list');
 		$this->db->join('users ', 'users.u_id = exam_marks_list.student_id', 'left');

@@ -101,8 +101,9 @@ table, th, td {
 		 <th>Day</th>
          <th>Slot Time</th>
          <th>Class</th>
-          <th>subject</th>
-          <th>Teacher</th>
+		 <th>Teacher Module</th>
+         <th>subject</th>
+         <th>Teacher</th>
 	  </tr>
 	 
 	  
@@ -113,6 +114,7 @@ table, th, td {
 		<td><?php echo isset($list['day'])?$list['day']:''; ?></td>
 		<td><?php echo isset($list['form_time'])?$list['form_time']:''; ?>-<?php echo isset($list['to_time'])?$list['to_time']:''; ?></td>
 		<td><?php echo isset($list['name'])?$list['name']:''; ?>-<?php echo isset($list['section'])?$list['section']:''; ?></td>
+		<td><?php echo isset($list['modules'])?$list['modules']:''; ?></td>
 		<td><?php echo isset($list['subjects'])?$list['subjects']:''; ?></td>
 		<td><?php echo isset($list['teachers'])?$list['teachers']:''; ?></td>
 	  </tr>

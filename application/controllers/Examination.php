@@ -468,6 +468,94 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+	
+	public  function updatemarks(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==9){
+				$detail=$this->School_model->get_resources_details($login_details['u_id']);
+				
+				$data['class_list']=$this->School_model->get_all_class_list($detail['s_id']);
+				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
+				$data['exam_list']=$this->Examination_model->get_exam_subject_list($detail['s_id']);
+				$post=$this->input->post();
+				//echo'<pre>';print_r($post);exit;
+				if(isset($post['signup'])&& $post['signup']=='submit'){
+			$data['update_exam_marks']=$this->Examination_model->get_update_exam_marks($detail['s_id'],$post['class_id'],$post['subject'],$post['exam_type']);
+					//echo'<pre>';print_r($data);exit;
+				}else{
+					$data['update_exam_marks']=array();
+				}
+				$this->load->view('examination/update-marks',$data);
+				$this->load->view('html/footer');
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	public  function updatemarkspost(){
+		if($this->session->userdata('userdetails'))
+		{
+		$login_details=$this->session->userdata('userdetails');
+
+			if($login_details['role_id']==9){
+					$post=$this->input->post();
+					//echo'<pre>';print_r($post);exit;
+					$detail=$this->School_model->get_resources_details($login_details['u_id']);
+					$cnt=0;foreach($post['student_id'] as $list){
+						$add_marks=array(
+						's_id'=>$detail['s_id'],
+						'student_id'=>$list,
+						'exam_id'=>isset($post['exam_id'])?$post['exam_id']:'',
+						'subject_id'=>isset($post['subject_id'])?$post['subject_id']:'',
+						'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+						'marks_obtained'=>isset($post['marks_obtained'][$cnt])?$post['marks_obtained'][$cnt]:'',
+						'max_marks'=>isset($post['max_marks'][$cnt])?$post['max_marks'][$cnt]:'',
+						'remarks'=>isset($post['remarks'][$cnt])?$post['remarks'][$cnt]:'',
+						'status'=>1,
+						'create_at'=>date('Y-m-d H:i:s'),
+						'create_by'=>$login_details['u_id'],
+						);
+						//echo '<pre>';print_r($add_marks);exit;
+						$check=$this->Examination_model->chekck_update_marks($list,$detail['s_id'],$post['exam_id'],$post['subject_id'],$post['class_id']);
+						if(($check)>0){
+							$save_marks=$this->Examination_model->update_exam_mark($check['id'],$add_marks);
+						}else{
+							$save_marks=$this->Examination_model->save_exam_mark($add_marks);
+						}
+						
+						
+					$cnt++;}
+					
+					
+					if(count($save_marks)>0){
+						$this->session->set_flashdata('success',"Student Marks successfully updated.");
+						redirect('examination/updatemarks');
+					}else{
+						$this->session->set_flashdata('error',"technical problem will occurred. Please try again.");
+						redirect('examination/updatemarks');
+					}
+					//echo '<pre>';print_r($post);exit;
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+		
+	}
+	
+	
+	
 	public  function viewmarks(){
 		if($this->session->userdata('userdetails'))
 		{
@@ -476,25 +564,24 @@ class Examination extends In_frontend {
 			if($login_details['role_id']==8 || $login_details['role_id']==9){
 				$detail=$this->School_model->get_resources_details($login_details['u_id']);
 				$post=$this->input->post();
-				//echo '<pre>';print_r($post);exit;
+				//echo '<pre>';print_r($post);exit
 				if(isset($post['signup'])&& $post['signup']=='submit'){
-				if(isset($post['subject'])&& $post['subject']!=='all'){
 					$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$post['class_id'],$post['subject'],$post['exam_type'],$post['student_id']);
 				}else{
-				$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$post['class_id'],$post['subject'],$post['exam_type'],$post['student_id']);
-
+				//$subject_list=$this->Examination_model->get_all_subject_list($detail['s_id'],$post['class_id']);
+               //echo '<pre>';print_r($subject_list);exit;
+				
+				//$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$list,$post['subject'],$post['exam_type'],$post['student_id']);
+				
 				}
-				//echo $this->db->last_query();exit;
-		
-					
-				}
-				if(isset($post['subject'])&& $post['subject']=='all'){
+				
+				if(isset($post['subject'])&& $post['subject']=='ALL'){
 				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
 				//echo '<pre>';print_r($data['subject_list']);exit;
 				}
 				
 				$data['student_name_list']=$this->Examination_model->get_all_student_name_list($detail['s_id']);
-				//echo '<pre>';print_r($data['student_name_list']);exit;
+				//echo '<pre>';print_r($data);exit;
 				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
 				$data['exam_list']=$this->Examination_model->get_exam_subject_list($detail['s_id']);
@@ -858,6 +945,7 @@ class Examination extends In_frontend {
 		}
 		
 	}
+	
 	public  function status(){
 		
 		if($this->session->userdata('userdetails'))

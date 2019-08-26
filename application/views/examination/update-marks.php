@@ -6,12 +6,12 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Exam Marks</h3>
+              <h3 class="box-title">Update Exam Marks</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
 			<div style="padding:20px;">
-            <form id="defaultForm" method="post" class="" action="<?php echo base_url('examination/marks'); ?>">
+            <form id="defaultForm" method="post" class="" action="<?php echo base_url('examination/updatemarks'); ?>">
 						<div class="col-md-4">
 							<div class="form-group">
 							<label class=" control-label">Class</label>
@@ -78,18 +78,16 @@
                     </form>
 					<div class="clearfix">&nbsp;</div>
 					
-			<?php if(isset($student_list) && count($student_list)>0){ ?>	
+			<?php if(isset($update_exam_marks) && count($update_exam_marks)>0){ ?>	
 				<div class="box attentdence-table" style="">
 					<div class="box-header">
 					  <h3 class="">Enter marks Here </h3>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body table-responsive">
-					<form action="<?php echo base_url('examination/addmarks'); ?>" method="post">
-					<input  type="hidden" name="exam_id" value="<?php echo $exam_name['id']; ?>">
-					<input  type="hidden" name="subject_id" value="<?php echo $subject_name['id']; ?>">
-					<input  type="hidden" name="class_id" value="<?php echo $student_list[0]['class_name']; ?>">
-					  <table id="example1" class="table table-bordered table-striped">
+					<form action="<?php echo base_url('examination/updatemarkspost'); ?>" method="post">
+					
+					<table id="example1" class="table table-bordered table-striped">
 						<thead>
 						<tr>
 						  <th>Class</th>
@@ -103,18 +101,22 @@
 						</tr>
 						</thead>
 						<tbody>
-						<?php foreach($student_list as $list){ ?>
+						<?php foreach($update_exam_marks as $list){ ?>
 						<tr>
-						<input type="hidden" name="student_id[]" value="<?php echo $list['u_id']; ?>">
-						   <th><?php echo $list['classname']; ?><?php echo $list['section']; ?></th>
+						<input type="hidden" name="student_id[]" value="<?php echo $list['student_id']; ?>">
+						<input  type="hidden" name="exam_id" value="<?php echo $list['exam_id']; ?>">
+					<input  type="hidden" name="subject_id" value="<?php echo $list['subject_id']; ?>">
+					<input  type="hidden" name="class_id" value="<?php echo $list['class_id']; ?>">    
+
+						  <th><?php echo $list['classname']; ?><?php echo $list['section']; ?></th>
 						   <th><?php echo $list['roll_number']; ?></th>
 						  <th><?php echo $list['name']; ?></th>
-						  <th><?php echo $subject_name['subject']; ?></th>
-						  <th><?php echo $exam_name['exam_type']; ?></th>
+						  <th><?php echo $list['subject']; ?></th>
+						  <th><?php echo $list['exam_type']; ?></th>
 						
-						  <td><input type="text" name="marks_obtained[]"   class="form-control"> </td>
-						  <td><input type="text" name="max_marks[]" class="form-control"> </td>
-						  <td><input type="text" name="remarks[]" class="form-control"> </td>
+						  <td><input type="text" name="marks_obtained[]"  value="<?php echo isset($list['marks_obtained'])?$list['marks_obtained']:''?>" class="form-control"> </td>
+						  <td><input type="text" name="max_marks[]" value="<?php echo isset($list['max_marks'])?$list['max_marks']:''?>" class="form-control"> </td>
+						  <td><input type="text" name="remarks[]"  value="<?php echo isset($list['remarks'])?$list['remarks']:''?>" class="form-control"> </td>
 						</tr>
 						<?php } ?>
 						
@@ -125,7 +127,7 @@
 						
 					  </table>
 					  <div class="clearfix">&nbsp;</div>
-					   <button class="btn btn-primary col-md-offset-4">Add Marks</button>
+					   <button class="btn btn-primary col-md-offset-4">Update Marks</button>
 					 
 					  </form>
 					</div>

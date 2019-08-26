@@ -32,7 +32,7 @@
                                                     <div class="form-group">
                                                         <label class=" control-label">Teacher Modules</label>
                                                         <div class="">
-														<select class="form-control" id="teacher_modules" name="teacher_modules" >
+														<select class="form-control" id="teacher_modules" name="teacher_modules" onchange="get_teachers_list(this.value);">
 												<option value="">Select</option>
 												<?php foreach($teacher_modules as $list){ ?>
 											<option value="<?php echo $list['teacher_module'];?>"><?php echo $list['modules'];?></option>
@@ -41,9 +41,17 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
-                                                
                                                
+                             <div class="col-md-6">
+							<div class="form-group">
+								<label class=" control-label">Teachers</label>
+								<div class="" id="teachers">
+									 
+								</div>
+							</div>
+                        </div>	
+						</div>
+                                               <div class="row">
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label class=" control-label">Instractions</label>
@@ -56,7 +64,7 @@
                                             <div class="clearfix"> </div>
                                             <div class="col-md-12">
                                                 <div class="input-group pull-right">
-                                                    <button type="submit" class="btn btn-primary " id="" name="" value="">Assign</button>
+                                                    <button type="submit" class="btn btn-primary " id="" name="" value="">Add</button>
                                                 </div>
                                             </div>
                                             <div class="clearfix">&nbsp;</div>
@@ -89,21 +97,9 @@ $(document).ready(function() {
  $('#datepicker1').datepicker({
       autoclose: true
     });
-	function admindeactive(id){
-	$(".popid").attr("href","<?php echo base_url('student/homeworkstatus/'); ?>"+"/"+id);
-} 
+	
 
-function admindedelete(id){
-	$(".popid").attr("href","<?php echo base_url('student/homeworkdelete/'); ?>"+"/"+id);
-}
-function adminstatus(id){
-	if(id==1){
-			$('#content1').html('Are you sure you want to Deactivate?');
-		
-	}if(id==0){
-			$('#content1').html('Are you sure you want to activate?');
-	}
-}
+
    $('#defaultForm').bootstrapValidator({
 //       
         fields: {
@@ -146,27 +142,43 @@ function adminstatus(id){
 
 </script>
 <script>
-function get_class_sujects(class_id){
-	  	if(class_id!=''){
-			jQuery.ajax({
-
-			url: "<?php echo base_url('student/get_teacher_class_subjects');?>",
-			type: 'post',
-			data: {
-			class_id: class_id,
-			},
-			dataType: 'json',
-				success: function (data) {
-						$('#subjects').empty();
-   						$('#subjects').append("<option value=''>select</option>");
-   						for(i=0; i<data.list.length; i++) {
-   							$('#subjects').append("<option value="+data.list[i].subject+">"+data.list[i].subject+"</option>");                      
-                       }
-				}
-			
-			});
-
+function selectAll(source) {
+		checkboxes = document.getElementsByName('teacher_ids[]');
+		for(var i in checkboxes)
+			checkboxes[i].checked = source.checked;
 	}
-	  
-  }
+</script>
+<script>
+
+function get_teachers_list(teacher_modules){
+	//alert('sss');
+	if(teacher_modules !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('principal/get_teachers_list');?>",
+   			data: {
+				teacher_modules: teacher_modules,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#teachers').empty();
+							$('#teachers').append("<input type='checkbox' id='checkall' onClick='selectAll(this)'  />Select All<br>");
+							for(i=0; i < parsedData.list.length; i++) {
+							//$('#student_name').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+							$('#teachers').append("<input type='checkbox' id='teacher_ids' class='checkbox1' name='teacher_ids[]' value="+parsedData.list[i].mobile+">&nbsp;&nbsp;&nbsp;"+parsedData.list[i].name+"&nbsp;<br>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+
   </script>

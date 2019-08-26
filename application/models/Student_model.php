@@ -303,10 +303,11 @@ class Student_model extends CI_Model
 		 return $this->db->get()->result_array(); 
 	 }
 	public function class_wise_time_slot_details($class_id){
-	$this->db->select('class_subjects.subject as subjects,class_times.form_time,class_times.to_time,users.name as teachers,class_list.name,class_list.section,time_slot.*')->from('time_slot');
+	$this->db->select('teacher_modules.modules,class_subjects.subject as subjects,class_times.form_time,class_times.to_time,users.name as teachers,class_list.name,class_list.section,time_slot.*')->from('time_slot');
 		 $this->db->join('class_list ', 'class_list.id = time_slot.class_id', 'left');
 		 $this->db->join('users ', 'users.u_id = time_slot.teacher', 'left');
 		 $this->db->join('class_times ', 'class_times.id = time_slot.time', 'left');
+		 $this->db->join('teacher_modules ', 'teacher_modules.t_m_id = time_slot.teacher_module', 'left');
 		 $this->db->join('class_subjects ', 'class_subjects.id = time_slot.subject', 'left');
 		 $this->db->where('users.role_id',6);
 		 $this->db->where('time_slot.class_id',$class_id);

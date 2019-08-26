@@ -562,7 +562,7 @@ public function __construct()
 				  }
 			   $cnt++;}
 				//exit;
-				$this->session->set_flashdata('success',"Student Attendence successfully Added.");
+				$this->session->set_flashdata('success',"Student attendance successfully added.");
 			    redirect('student/attendence');
 				if(count($add_attendance)>0){
 					$this->session->set_flashdata('success',"Student Attendence successfully Added.");

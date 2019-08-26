@@ -178,6 +178,7 @@ function get_student_subject_list(class_id){
 						//alert(parsedData.list.length);
 							$('#subject').empty();
 							$('#subject').append("<option>select</option>");
+							$('#subject').append("<option value='ALL'>ALL</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
 							$('#subject').append("<option value="+parsedData.list[i].id+">"+parsedData.list[i].subject+"</option>");                      

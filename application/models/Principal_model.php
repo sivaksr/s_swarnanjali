@@ -180,8 +180,18 @@ class Principal_model extends CI_Model
 	$this->db->where('bonfi_cer.status',1);
 	return $this->db->get()->row_array();
 	}	
-	
-	
+	public function get_teachers_list($teacher_modules){
+	$this->db->select('time_slot.id,time_slot.teacher,users.name,users.mobile')->from('time_slot');
+	$this->db->join('users ', 'users.u_id = time_slot.teacher', 'left');
+	$this->db->where('time_slot.teacher_module',$teacher_modules);
+	$this->db->group_by('time_slot.teacher');
+	$this->db->where('time_slot.status',1);
+	return $this->db->get()->result_array(); 
+	}
+	public function save_principal_assign_teachers($data){
+	$this->db->insert('teachers',$data);
+	return $this->db->insert_id();
+	}
 	
 	
  }

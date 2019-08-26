@@ -404,7 +404,7 @@
 					<li><a target="_blank"  href="<?php echo base_url('reports/due'); ?>">Due Report</a></li>
 					<li><a target="_blank"  href="<?php echo base_url('reports/paid'); ?>">Paid Report</a></li>
 				  </ul>
-				</li>-->
+				</li>
 				
 				<li class="treeview">
 				  <a href="<?php echo base_url('reports'); ?>">
@@ -413,7 +413,7 @@
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
 				  </a>
-			</li>
+			</li>-->
             <li class="treeview">
 				  <a href="<?php echo base_url('announcement/smstextemail'); ?>">
 					<i class="fa fa-user"></i> <span>SMS Text & Emails</span>
@@ -578,6 +578,14 @@
 			<li class="treeview">
 				  <a href="<?php echo base_url('examination/marks'); ?>">
 					<i class="fa fa-user"></i> <span>Add Marks  </span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>
+			<li class="treeview">
+				  <a href="<?php echo base_url('examination/updatemarks'); ?>">
+					<i class="fa fa-user"></i> <span>Update Marks  </span>
 					<span class="pull-right-container">
 					  <i class="fa fa-angle-left pull-right"></i>
 					</span>
