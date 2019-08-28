@@ -225,6 +225,51 @@ class Principal_model extends CI_Model
 	}
 	
 	
+	/* attendenace list */
+	 public function get_student_attendance_report_List($s_id){
+		$this->db->select('class_list.name as class_name,class_list.section,users.u_id,users.name,users.roll_number,student_attendenc_reports.time,student_attendenc_reports.attendence,student_attendenc_reports.student_id')->from('student_attendenc_reports');
+		$this->db->join('users ', 'users.u_id = student_attendenc_reports.student_id', 'left');
+		$this->db->join('class_list ', 'class_list.id = student_attendenc_reports.class_id', 'left');
+		//$this->db->where("DATE_FORMAT(student_attendenc_reports.created_at,'%Y-%m-%d')",$date);
+		$this->db->where('users.role_id',7);
+		$this->db->where('student_attendenc_reports.s_id',$s_id);
+		$this->db->order_by('student_attendenc_reports.time','asc');
+		//$this->db->group_by('student_attendenc_reports.time');
+		$return=$this->db->get()->result_array();
+		foreach($return as $list){
+			
+			$hours=$this->get_hours_wise_attendance_report_list($list['u_id']);
+			$data[$list['u_id']]=$list;
+			$data[$list['u_id']]['hours_list']=$hours;
+		}
+		//echo '<pre>';print_r($return);exit;
+		if(!empty($data)){
+			return $data;
+		}
+		
+	}
+	public function get_hours_wise_attendance_report_list($id){
+		$this->db->select('class_list.name as class_name,class_list.section,users.name,users.roll_number,student_attendenc_reports.time,student_attendenc_reports.attendence,student_attendenc_reports.student_id')->from('student_attendenc_reports');
+		$this->db->join('users ', 'users.u_id = student_attendenc_reports.student_id', 'left');
+		$this->db->join('class_list ', 'class_list.id = student_attendenc_reports.class_id', 'left');
+		$this->db->where('student_attendenc_reports.student_id',$id);
+		//$this->db->where("DATE_FORMAT(student_attendenc_reports.created_at,'%Y-%m-%d')",$date);
+
+		$this->db->where('users.role_id',7);
+		$this->db->order_by('student_attendenc_reports.time','asc');
+		return $this->db->get()->result_array();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

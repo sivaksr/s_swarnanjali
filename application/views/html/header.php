@@ -412,9 +412,34 @@
 					<li><a target="_blank"  href="<?php echo base_url('reports/due'); ?>">Due Report</a></li>
 					<li><a target="_blank"  href="<?php echo base_url('reports/paid'); ?>">Paid Report</a></li>
 				  </ul>
-				</li>
+				</li>-->
 				
-				<li class="treeview">
+				
+			
+			<li class="treeview">
+				  <a href="<?php echo base_url(''); ?>">
+					<i class="fa fa-user"></i> <span>Send SMS For Students</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu" style="display: none;">
+            <li>
+				 <a href="<?php echo base_url('announcement/sms'); ?>">
+					<i class="fa fa-circle-o"></i> <span>Send SMS</span>
+					
+				  </a>
+			</li>
+            <li>
+				 <a href="<?php echo base_url('announcement/smslists'); ?>">
+					<i class="fa fa-circle-o"></i> <span>Send SMS Student List</span>
+					
+				  </a>
+			</li>
+			</ul>
+			</li>
+			
+           <!--<li class="treeview">
 				  <a href="<?php echo base_url('reports'); ?>">
 					<i class="fa fa-user"></i> <span>Reports</span>
 					<span class="pull-right-container">
@@ -422,14 +447,6 @@
 					</span>
 				  </a>
 			</li>-->
-            <li class="treeview">
-				  <a href="<?php echo base_url('announcement/smstextemail'); ?>">
-					<i class="fa fa-user"></i> <span>SMS Text & Emails</span>
-					<span class="pull-right-container">
-					  <i class="fa fa-angle-left pull-right"></i>
-					</span>
-				  </a>
-			</li>
 			
             <!--<li class="treeview">
 				  <a href="<?php echo base_url('student/feelist'); ?>">
@@ -765,6 +782,12 @@
 			<li class="treeview">
 				  <a href="<?php echo base_url('student/yearwiselist'); ?>">
 					<i class="fa fa-user"></i> <span>Student List</span>
+					
+				  </a>
+			</li>	
+			<li class="treeview">
+				  <a href="<?php echo base_url('student/attendancelist'); ?>">
+					<i class="fa fa-user"></i> <span>Student Attendance List</span>
 					
 				  </a>
 			</li>	

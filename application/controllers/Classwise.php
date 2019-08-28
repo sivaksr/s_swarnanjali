@@ -544,7 +544,7 @@ public function __construct()
 					$data['details']=array();
 				}
               $data['teacher_modules']=$this->School_model->get_teacher_modules_wise_class($detail['s_id']);
-					//echo '<pre>';print_r($data);exit;
+					//echo '<pre>';print_r($data['details']);exit;
 
 				$this->load->view('school/add-timetable',$data);
 				$this->load->view('html/footer');

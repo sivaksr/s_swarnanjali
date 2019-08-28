@@ -292,7 +292,7 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
 		}
 	}
     
-    public  function smstextemail(){
+    public  function sms(){
 		if($this->session->userdata('userdetails'))
 				{
 					$login_details=$this->session->userdata('userdetails');
@@ -350,8 +350,110 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
 	public  function smspost(){
 		if($this->session->userdata('userdetails'))
 		{
+			$login_details=$this->session->userdata('userdetails');
+			if($login_details['role_id']==3){
 			$post=$this->input->post();
-			//echo '<pre>';print_r($post);exit;
+			$detail=$this->Student_model->get_resources_details($login_details['u_id']);
+			foreach($post['student_name'] as $lis){ 
+				$check[]=$this->Student_model->get_student_name_list(ucfirst($lis),$detail['s_id']);
+				}
+
+			foreach($check as $list){
+				$mobiles[]=$list['mobile'];
+			}
+			$los=implode(',', $mobiles);
+		//echo '<pre>';print_r($los);exit;
+
+			if($check!=array()){
+			$otp=isset($post['msg'])?$post['msg']:'';
+            $username = $this->config->item('smsusername');
+            $pass     = $this->config->item('smspassword');
+            $sender   = $this->config->item('sender');
+            $msg      =$otp;
+			$save_data=array(
+			's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+			'sms'=>isset($post['sms'])?$post['sms']:'',
+			'class_id'=>isset($post['class_id'])?$post['class_id']:'',
+			'msg'=>isset($post['msg'])?$post['msg']:'',
+			'otp'=>isset($otp)?$otp:'',
+			'opt_created_at'=>date('Y-m-d H:i:s'),
+			'status'=>1,
+			'created_at'=>date('Y-m-d H:i:s'),
+			'created_by'=>$login_details['u_id'],
+			);
+			$save=$this->Student_model->save_sms_details($save_data);
+			//echo '<pre>';print_r($save);exit;
+			if(count($save)>0){
+			if(isset($post['student_name']) && count($post['student_name'])>0){
+					$cnt=0;foreach($post['student_name'] as $li){ 
+						  $add_data=array(
+						  'sms_id'=>isset($save)?$save:'',
+						  's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+						  'student_name'=>$li,
+						  'status'=>1,
+						  'created_at'=>date('Y-m-d H:i:s'),
+						  'updated_at'=>date('Y-m-d H:i:s'),
+						  'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+						  );
+						   //echo '<pre>';print_r($add_data);exit;
+						  $this->Student_model->save_send_sms_students($add_data);	
+
+				       $cnt++;}
+					}
+			}
+            $ch2 = curl_init();
+            curl_setopt($ch2, CURLOPT_URL, "http://trans.smsfresh.co/api/sendmsg.php");
+            curl_setopt($ch2, CURLOPT_POST, 1);
+            curl_setopt($ch2, CURLOPT_POSTFIELDS, 'user=' . $username . '&pass=' . $pass . '&sender=' . $sender . '&phone=' .$los. '&text=' . $msg . '&priority=ndnd&stype=normal');
+            curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+            $server_output = curl_exec($ch2);
+			//echo '<pre>';print_r($server_output);exit;
+            curl_close($ch2);
+			$this->session->set_flashdata('success',"Message successfully sent");
+			redirect('announcement/sms');
+			}else{
+			$this->session->set_flashdata('error','technical problem will occurred. Please try again.');
+			redirect('announcement/sms');	
+		}
+		}else{
+					$this->session->set_flashdata('error',"you don't have permission to access");
+					redirect('dashboard');
+			}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}	
+	}
+	public function smslists()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==3){
+					$detail=$this->School_model->get_resources_details($login_details['u_id']);
+					$data['student_list']=$this->Student_model->get_student_send_sms_list($detail['s_id']);
+					//echo'<pre>';print_r($data);exit;
+					$this->load->view('announcement/list',$data);
+					$this->load->view('html/footer');
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
+	
+	/*
+	public  function smspost(){
+		if($this->session->userdata('userdetails'))
+		{
+			$post=$this->input->post();
+			echo '<pre>';print_r($post);exit;
+			
+			
+			
 			
 			if(count($post['stu_ids'])>0){
 				foreach($post['stu_ids'] as $li){
@@ -377,7 +479,7 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
 			redirect('home');
 		}
 	}
-	
+	*/
 	
 	
     

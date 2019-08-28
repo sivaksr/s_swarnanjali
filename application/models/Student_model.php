@@ -541,7 +541,47 @@ class Student_model extends CI_Model
 		 $this->db->where('status',1);
 		 return $this->db->get()->result_array(); 
 	 }
-   
+   public function get_student_name_list($id,$s_id){
+		$this->db->select('users.u_id,users.name,users.email,users.mobile')->from('users');
+		$this->db->where('users.u_id',$id);
+		$this->db->where('users.s_id',$s_id);
+		$this->db->where('users.status',1);
+		return $this->db->get()->row_array();	
+	}
+	public function save_sms_details($data){
+	$this->db->insert('sms',$data);
+	return $this->db->insert_id();
+	}
+	public function save_send_sms_students($data){
+	$this->db->insert('send_student_sms',$data);
+	return $this->db->insert_id();
+	}
+	public function get_student_send_sms_list($s_id){
+	$this->db->select('sms.*,class_list.name,class_list.section')->from('sms');
+	$this->db->join('class_list ', 'class_list.id = sms.class_id', 'left');
+	$this->db->where('sms.status',1);
+	$this->db->where('sms.s_id',$s_id);
+	 $return=$this->db->get()->result_array();
+	  foreach($return as $list){
+	   $lists=$this->get_students_name_list($list['sms_id']);
+	   $data[$list['sms_id']]=$list;
+	   $data[$list['sms_id']]['students']=$lists;
+	   
+	  }
+	if(!empty($data)){
+	   
+	   return $data;
+	   
+	  }
+ }
+	public function get_students_name_list($sms_id){
+	 $this->db->select('users.name,users.mobile')->from('send_student_sms');
+     $this->db->join('users', 'users.u_id = send_student_sms.student_name', 'left');
+	 $this->db->where('send_student_sms.sms_id',$sms_id);
+     $this->db->where('send_student_sms.status',1);
+	 return $this->db->get()->result_array();
+	}
+	
    /* student year wise list */
    public function get_year_wise_student_list($year){
 	$this->db->select('users.*,class_list.name as classname,class_list.section')->from('users');

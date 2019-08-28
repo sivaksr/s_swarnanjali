@@ -6,6 +6,7 @@ public function __construct()
 	{
 		parent::__construct();	
 			$this->load->model('Student_model');
+			$this->load->model('Principal_model');
 	}
 	public function index()
 	{	
@@ -1402,8 +1403,7 @@ public function edithomeworkpost()
 		}
 	}
 	
-	
-	
+		
 	
 	
 	

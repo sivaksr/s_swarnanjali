@@ -7,7 +7,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Principal assigned instructions for students</h3>
+                        <h3 class="box-title">Send SMS For Students</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -192,7 +192,7 @@ function get_student_list(class_id){
 							$('#student_name').append("<input type='checkbox' id='checkall' onClick='selectAll(this)'  />Select All<br>");
 							for(i=0; i < parsedData.list.length; i++) {
 							//$('#student_name').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
-							$('#student_name').append("<input type='checkbox' name='student_name[]' id='stu_ids' class='checkbox1' name='stu_ids[]' value="+parsedData.list[i].mobile+">&nbsp;&nbsp;&nbsp;"+parsedData.list[i].name+"&nbsp;<br>");                      
+							$('#student_name').append("<input type='checkbox' name='student_name[]' id='stu_ids' class='checkbox1'  value="+parsedData.list[i].u_id+">&nbsp;&nbsp;&nbsp;"+parsedData.list[i].name+"&nbsp;<br>");                      
                     
 								
 							 

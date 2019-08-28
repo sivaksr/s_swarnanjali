@@ -31,7 +31,7 @@
 												<option value="Monday" <?php if(isset($details['day']) && $details['day']=='Monday'){ echo "selected"; } ?>>Monday</option>
 												<option value="Tuesday"<?php if(isset($details['day']) && $details['day']=='Tuesday'){ echo "selected"; } ?>>Tuesday</option>
 												<option value="Wednesday"<?php if(isset($details['day']) && $details['day']=='Wednesday'){ echo "selected"; } ?>>Wednesday</option>
-												<option  value="Thursday"<?php if(isset($details['day']) && $details['day']=='Wednesday'){ echo "selected"; } ?>>Thursday</option>
+												<option  value="Thursday"<?php if(isset($details['day']) && $details['day']=='Thursday'){ echo "selected"; } ?>>Thursday</option>
 												<option value="Friday"<?php if(isset($details['day']) && $details['day']=='Friday'){ echo "selected"; } ?>>Friday</option>
 												<option value="Saturday"<?php if(isset($details['day']) && $details['day']=='Saturday'){ echo "selected"; } ?>>Saturday</option>
 												<option value="Sunday"<?php if(isset($details['day']) && $details['day']=='Sunday'){ echo "selected"; } ?>>Sunday</option>

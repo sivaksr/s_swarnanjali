@@ -56,15 +56,26 @@
 						  <!--<a class="btn btn-warning btn-sm" href="<?php echo base_url('librarian/return_book/'.base64_encode($list['i_b_id'])); ?>" >Return/Renew</a>-->
 						
 					  </td>
+					   <?php if($list['status']!=0){?>
 					  <td class="text-center">
+					  
 					<div>
 					    <a  href="<?php echo base_url('librarian/returnbook/'.base64_encode($list['i_b_id'])); ?>" class="btn btn-primary btn-xs">Return </a> 
 					</div>
+					  
 <br/>					
 					<div>
 						<a  href="<?php echo base_url('librarian/renewalbook/'.base64_encode($list['i_b_id'])); ?>" class="btn btn-danger btn-xs">Renewal </a> 
 					</div>
 					  </td>
+					<?php }else{?>
+					  <td class="text-center">
+					<div>
+					    <a  href="<?php echo base_url('librarian/returnbook/'.base64_encode($list['i_b_id'])); ?>" class="btn btn-primary btn-xs">Return </a> 
+					</div>
+					</td>
+					<?php }?>
+					
 					</tr>
 					<?php } ?>
 				<?php } ?>
