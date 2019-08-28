@@ -240,7 +240,7 @@ function adminstatus(id){
 			'stops[]':{
 			   validators: {
 					notEmpty: {
-						message: 'Stops is required'
+						message: 'From Stop is required'
 					}
 				}
             },
@@ -248,7 +248,7 @@ function adminstatus(id){
 			'to_stops[]':{
 			   validators: {
 					notEmpty: {
-						message: 'to stops is required'
+						message: 'To Stop is required'
 					}
 				}
             }, 

@@ -385,6 +385,14 @@
 				  </a>
 			</li>
 			<li class="treeview">
+				  <a href="<?php echo base_url('principal/lists'); ?>">
+					<i class="fa fa-user"></i> <span>Principal assigned instructions to teacher</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>
+			<li class="treeview">
 				  <a href="<?php echo base_url('transportation/student_transport_registration'); ?>">
 					<i class="fa fa-user"></i> <span>Student Transport Registration</span>
 					
@@ -422,6 +430,7 @@
 					</span>
 				  </a>
 			</li>
+			
             <!--<li class="treeview">
 				  <a href="<?php echo base_url('student/feelist'); ?>">
 					<i class="fa fa-user"></i> <span>Fee List</span>
@@ -737,7 +746,13 @@
 		<?php }else if($userdetails['role_id']==12){?>
 		<li class="treeview">
 				  <a href="<?php echo base_url('principal'); ?>">
-					<i class="fa fa-user"></i> <span>Principal assign instuctions</span>
+					<i class="fa fa-user"></i> <span>Principal assign instructions</span>
+					
+				  </a>
+			</li>
+			<li class="treeview">
+				  <a href="<?php echo base_url('principal/lists'); ?>">
+					<i class="fa fa-user"></i> <span>Principal assign instructions List</span>
 					
 				  </a>
 			</li>

@@ -6,33 +6,43 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Exam Marks</h3>
+              <h3 class="box-title">View Exam Marks</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
 			<div style="padding:20px;">
-            <form id="defaultForm" method="post" class="" action="<?php echo base_url('examination/marks'); ?>">
+            <form id="defaultForm" method="post" class="" action="<?php echo base_url('examination/marksview'); ?>">
+			<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Class list</label>
+								<div class="">
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value); get_exam_marks_subjects_list(this.value);" class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($class_list as $list){ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								<?php }?>
+								</select>
+								</div>
+							</div>
+                        </div>
+						
 						<div class="col-md-4">
 							<div class="form-group">
-							<label class=" control-label">Class</label>
-										<div class="">
-											<select class="form-control" id="class_id" name="class_id" onchange="get_exam_types(this.value); get_addexam_subjects_list(this.value);" >
-												<option value="">Select Class</option>
-												<?php foreach($class_list as $list){ ?>
-												<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-												<?php } ?>
-												
-											</select>
-										</div>
-									</div>
-                        </div>
+								<label class=" control-label">Student Name</label>
+								<div class="">
+									<select id="student_id" name="student_id"  class="form-control" >
+									<option value="">Select</option>
+									</select>
+								</div>
+							</div>
+                        </div>	
 							
 						<div class="col-md-4">
 							<div class="form-group">
-							<label class=" control-label"> Subject</label>
+							<label class=" control-label">All Subjects</label>
 										<div class="">
 											<select class="form-control" id="subject" name="subject">
-												<option value="">Select subject</option>
+												<option value="">Select</option>
 												<?php foreach($subject_list as $list){ ?>
 												<option value="<?php echo $list['id']; ?>"><?php echo $list['subject']; ?></option>
 												<?php } ?>
@@ -60,7 +70,7 @@
 							<label> &nbsp;</label>
 
 							<div class="input-group ">
-							  <button type="submit" class="btn btn-primary pull-right " name="signup" value="submit">Next</button>
+				<button type="submit" class="btn btn-primary pull-right " name="signup" value="submit">Next</button>
 							</div>
 							<!-- /.input group -->
 						  </div>
@@ -81,15 +91,11 @@
 			<?php if(isset($student_list) && count($student_list)>0){ ?>	
 				<div class="box attentdence-table" style="">
 					<div class="box-header">
-					  <h3 class="">Enter marks Here </h3>
+					  <h3 class="">View Exam marks</h3>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body table-responsive">
-					<form action="<?php echo base_url('examination/addmarks'); ?>" method="post">
-					<input  type="hidden" name="exam_id" value="<?php echo $exam_name['id']; ?>">
-					<input  type="hidden" name="subject_id" value="<?php echo $subject_name['id']; ?>">
-					<input  type="hidden" name="class_id" value="<?php echo $student_list[0]['class_name']; ?>">
-					  <table id="example1" class="table table-bordered table-striped">
+					<table id="example1" class="table table-bordered table-striped">
 						<thead>
 						<tr>
 						  <th>Class</th>
@@ -105,16 +111,14 @@
 						<tbody>
 						<?php foreach($student_list as $list){ ?>
 						<tr>
-						<input type="hidden" name="student_id[]" value="<?php echo $list['u_id']; ?>">
 						   <th><?php echo $list['classname']; ?><?php echo $list['section']; ?></th>
 						   <th><?php echo $list['roll_number']; ?></th>
 						  <th><?php echo $list['name']; ?></th>
-						  <th><?php echo $subject_name['subject']; ?></th>
-						  <th><?php echo $exam_name['exam_type']; ?></th>
-						
-						  <td><input type="text" name="marks_obtained[]"   class="form-control"> </td>
-						  <td><input type="text" name="max_marks[]" class="form-control"> </td>
-						  <td><input type="text" name="remarks[]" class="form-control"> </td>
+						  <th><?php echo $list['subject']; ?></th>
+						  <th><?php echo $list['exam_type']; ?></th>
+						  <th><?php echo $list['marks_obtained']; ?></th>
+						  <th><?php echo $list['max_marks']; ?></th>
+						  <th><?php echo $list['remarks']; ?></th>
 						</tr>
 						<?php } ?>
 						
@@ -125,7 +129,6 @@
 						
 					  </table>
 					  <div class="clearfix">&nbsp;</div>
-					   <button class="btn btn-primary col-md-offset-4">Add Marks</button>
 					 
 					  </form>
 					</div>
@@ -158,11 +161,11 @@
   
   </script>
   <script>
-function get_addexam_subjects_list(class_id){
+ function get_exam_marks_subjects_list(class_id){
 	//alert('haii');
 	if(class_id !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('examination/get_addexam_subjects_list');?>",
+   			url: "<?php echo base_url('examination/get_exam_marks_subjects_list');?>",
    			data: {
 				class_id: class_id,
 			},
@@ -177,7 +180,7 @@ function get_addexam_subjects_list(class_id){
 							$('#subject').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#subject').append("<option value="+parsedData.list[i].subjects+">"+parsedData.list[i].subject+"</option>");                      
+							$('#subject').append("<option value="+parsedData.list[i].subject_id+">"+parsedData.list[i].subject+"</option>");                      
                     
 								
 							 
@@ -188,44 +191,21 @@ function get_addexam_subjects_list(class_id){
            });
 	   }
 }
-
-
-function get_exam_types(class_id){
-	if(class_id !=''){
-		    jQuery.ajax({
-   			url: "<?php echo base_url('examination/get_exam_types_list');?>",
-   			data: {
-				class_id: class_id,
-			},
-   			type: "POST",
-   			format:"Json",
-   					success:function(data){
-						
-						if(data.msg=1){
-							var parsedData = JSON.parse(data);
-						//alert(parsedData.list.length);
-							$('#exam_type').empty();
-							$('#exam_type').append("<option>select</option>");
-							for(i=0; i < parsedData.list.length; i++) {
-								//console.log(parsedData.list);
-							$('#exam_type').append("<option value="+parsedData.list[i].id+">"+parsedData.list[i].exam_type+"</option>");                      
-                    
-								
-							 
-							}
-						}
-						
-   					}
-           });
-	   }
-}
-
+  
 </script>
   <script type="text/javascript">
 $(document).ready(function() {
    $('#defaultForm').bootstrapValidator({
 //     
         fields: {
+			student_id:{
+			 validators: {
+                    notEmpty: {
+                        message: 'Student Name is required'
+                    }
+                }
+            },
+			
             exam_type: {
                 validators: {
                     notEmpty: {
@@ -273,4 +253,73 @@ $(document).ready(function() {
     });
   });
 </script>
+<script>
+function get_student_list(class_id){
+	if(class_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('examination/class_student_list');?>",
+   			data: {
+				class_id: class_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#student_id').empty();
+							$('#student_id').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#student_id').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
 
+function get_student_allsubjects_list(student_id){
+	if(student_id !=''){
+		    jQuery.ajax({
+   			url: "<?php echo base_url('Examination/get_student_allsubjects_list');?>",
+   			data: {
+				student_id: student_id,
+			},
+   			type: "POST",
+   			format:"Json",
+   					success:function(data){
+						
+						if(data.msg=1){
+							var parsedData = JSON.parse(data);
+						//alert(parsedData.list.length);
+							$('#subject').empty();
+							$('#subject').append("<option>select</option>");
+							for(i=0; i < parsedData.list.length; i++) {
+								//console.log(parsedData.list);
+							$('#subject').append("<option value="+parsedData.list[i].name+">"+parsedData.list[i].subject+"</option>");                      
+                    
+								
+							 
+							}
+						}
+						
+   					}
+           });
+	   }
+}
+
+
+
+
+
+
+
+
+
+</script>

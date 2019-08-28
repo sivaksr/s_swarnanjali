@@ -351,6 +351,8 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
 		if($this->session->userdata('userdetails'))
 		{
 			$post=$this->input->post();
+			//echo '<pre>';print_r($post);exit;
+			
 			if(count($post['stu_ids'])>0){
 				foreach($post['stu_ids'] as $li){
 						$username = $this->config->item('smsusername');

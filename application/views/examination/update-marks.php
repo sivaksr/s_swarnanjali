@@ -16,7 +16,7 @@
 							<div class="form-group">
 							<label class=" control-label">Class</label>
 										<div class="">
-											<select class="form-control" id="class_id" name="class_id" onchange="get_student_subject_list(this.value);" >
+											<select class="form-control" id="class_id" name="class_id" onchange="get_addexam_subjects_list(this.value);" >
 												<option value="">Select Class</option>
 												<?php foreach($class_list as $list){ ?>
 												<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
@@ -160,11 +160,11 @@
   
   </script>
   <script>
-function get_student_subject_list(class_id){
+function get_addexam_subjects_list(class_id){
 	//alert('haii');
 	if(class_id !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('examination/get_student_subject_list');?>",
+   			url: "<?php echo base_url('examination/get_addexam_subjects_list');?>",
    			data: {
 				class_id: class_id,
 			},
@@ -179,7 +179,7 @@ function get_student_subject_list(class_id){
 							$('#subject').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#subject').append("<option value="+parsedData.list[i].id+">"+parsedData.list[i].subject+"</option>");                      
+							$('#subject').append("<option value="+parsedData.list[i].subjects+">"+parsedData.list[i].subject+"</option>");                      
                     
 								
 							 

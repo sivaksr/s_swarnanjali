@@ -192,7 +192,7 @@ function get_student_list(class_id){
 							$('#student_name').append("<input type='checkbox' id='checkall' onClick='selectAll(this)'  />Select All<br>");
 							for(i=0; i < parsedData.list.length; i++) {
 							//$('#student_name').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
-							$('#student_name').append("<input type='checkbox' id='stu_ids' class='checkbox1' name='stu_ids[]' value="+parsedData.list[i].mobile+">&nbsp;&nbsp;&nbsp;"+parsedData.list[i].name+"&nbsp;<br>");                      
+							$('#student_name').append("<input type='checkbox' name='student_name[]' id='stu_ids' class='checkbox1' name='stu_ids[]' value="+parsedData.list[i].mobile+">&nbsp;&nbsp;&nbsp;"+parsedData.list[i].name+"&nbsp;<br>");                      
                     
 								
 							 
@@ -232,7 +232,7 @@ $(document).ready(function(){
     $("#example").DataTable();
   });
   function selectAll(source) {
-		checkboxes = document.getElementsByName('stu_ids[]');
+		checkboxes = document.getElementsByName('student_name[]');
 		for(var i in checkboxes)
 			checkboxes[i].checked = source.checked;
 	}

@@ -169,7 +169,7 @@ function get_teachers_list(teacher_modules){
 							$('#teachers').append("<input type='checkbox' id='checkall' onClick='selectAll(this)'  />Select All<br>");
 							for(i=0; i < parsedData.list.length; i++) {
 							//$('#student_name').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
-							$('#teachers').append("<input type='checkbox' id='teacher_ids' class='checkbox1' name='teacher_ids[]' value="+parsedData.list[i].mobile+">&nbsp;&nbsp;&nbsp;"+parsedData.list[i].name+"&nbsp;<br>");                      
+							$('#teachers').append("<input type='checkbox' id='teacher_ids' class='checkbox1' name='teacher_ids[]' value="+parsedData.list[i].teacher+">&nbsp;&nbsp;&nbsp;"+parsedData.list[i].name+"&nbsp;<br>");                      
                     
 								
 							 

@@ -891,16 +891,15 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 
 			if($login_details['role_id']==5){
 				$post=$this->input->post();
-				//echo'<pre>';print_r($post);exit;
 				$details=$this->Transportation_model->get_transportaion_details($post['f_id']);
-				if($details['route_id']=!$post['route_id'] || $details['stops']=!$post['stops']){
-				$check=$this->Transportation_model->check_transfprtaion_exits($post['route_id'],$post['stops'],$post['frequency'],$post['amount']);
-					if(count($check)>0){
-							$this->session->set_flashdata('error',"transportation Details already exists. Please try again.");
-							redirect('transportation/transportedit/'.base64_encode($post['f_id']));
-						
+                 if($details['route_id']!=$post['route_id']|| $details['stops']!=$post['stops']||$details['to_stops']!=$post['to_stops']){
+						$check=$this->Transportation_model->check_transfprtaion_exits($post['route_id'],$post['stops'],$post['to_stops']);
+						if(count($check)>0){
+						$this->session->set_flashdata('error',"transportation fee details already exists. Please try again.");
+						redirect('transportation/transportedit/'.base64_encode($post['f_id']));
+						}
 					}
-				}
+				
 				$update=array(
 					'route_id'=>isset($post['route_id'])?$post['route_id']:"",
 					'stops'=>isset($post['stops'])?$post['stops']:"",

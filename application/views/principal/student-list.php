@@ -21,7 +21,7 @@
 
                                 <div class="tab-content">
                                     
-                                       <form id="defaultForm"  method="post" class="" action="">
+                                       <form id="defaultForm" target='_blank' method="post" class="" action="">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">

@@ -320,7 +320,6 @@ class Transportation_model extends CI_Model
 		$this->db->select('route_stops.stop_name,vehicle_stops.multiple_stops')->from('vehicle_details');
 		 $this->db->join('vehicle_stops', 'vehicle_stops.v_id = vehicle_details.v_id ', 'left');
 		 $this->db->join('route_stops', 'route_stops.stop_id = vehicle_stops.multiple_stops ', 'left');
-		 
 		$this->db->where('vehicle_details.route_number',$route_number);
 		$this->db->where('vehicle_details.status',1);
 		return $this->db->get()->result_array();
@@ -390,16 +389,17 @@ class Transportation_model extends CI_Model
 		 return $this->db->get()->row_array();
 		 
 	 }
+	 public  function check_transfprtaion_exits($route_id,$stops,$to_stops){
+		$this->db->select('*')->from('transport_fee');
+		$this->db->where('route_id',$route_id);
+		$this->db->where('stops',$stops);
+		$this->db->where('to_stops',$to_stops);
+		$this->db->where('status',1);
+		return $this->db->get()->row_array();
+		
+	}
 	 
-	 
-	 public  function check_transfprtaion_exits($route_id,$stops,$frequency,$amount){
-		 $this->db->select('*')->from('transport_fee');
-		 $this->db->where('transport_fee.route_id',$route_id);
-		 $this->db->where('transport_fee.stops',$stops);
-		 $this->db->where('transport_fee.frequency',$frequency);
-		 $this->db->where('transport_fee.amount',$amount);
-		 return $this->db->get()->row_array();
-	}	
+	
 	 /* Student Transport Registration  */
 	public function class_wise_student_list($class_id){
 	 $this->db->select('users.class_name,users.name,users.u_id')->from('users');

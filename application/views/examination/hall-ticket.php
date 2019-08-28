@@ -19,18 +19,15 @@
                                 <div class="form-group">
                                     <label class=" control-label">Class</label>
                                     <div class="">
-                                        <select id="class_id" name="class_id" class="form-control" onchange="get_student_list(this.value);">
+                                        <select id="class_id" name="class_id" class="form-control" onchange="get_exam_types(this.value);">
                                            <option value="">Select Class</option>
 										   <?php if(isset($class_list) && count($class_list)>0){ ?>
 											<?php foreach($class_list as $list){ ?>
 											
-													<?php if($exam_hallticket['class_id']==$list['id']){ ?>
-															<option selected value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
-													<?php }else{ ?>
 															<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
 													<?php } ?>
 											<?php } ?>
-										<?php } ?>
+										
 										
 												
                                         </select>
@@ -277,10 +274,10 @@ $(document).ready(function(){
   
   </script>
 <script>
-function get_student_list(class_id){
+function get_exam_types(class_id){
 	if(class_id !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('Examination/class_student_list');?>",
+   			url: "<?php echo base_url('examination/get_exam_types_list');?>",
    			data: {
 				class_id: class_id,
 			},
@@ -291,11 +288,11 @@ function get_student_list(class_id){
 						if(data.msg=1){
 							var parsedData = JSON.parse(data);
 						//alert(parsedData.list.length);
-							$('#student_id').empty();
-							$('#student_id').append("<option>select</option>");
+							$('#exam_type').empty();
+							$('#exam_type').append("<option>select</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
-							$('#student_id').append("<option value="+parsedData.list[i].u_id+">"+parsedData.list[i].name+"</option>");                      
+							$('#exam_type').append("<option value="+parsedData.list[i].id+">"+parsedData.list[i].exam_type+"</option>");                      
                     
 								
 							 

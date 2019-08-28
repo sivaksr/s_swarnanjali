@@ -36,13 +36,14 @@ public function __construct()
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 				$post=$this->input->post();
 				//echo '<pre>';print_r($post);exit;
-				$check=$this->Principal_model->get_teacher_list($post['teacher_modules'],$detail['s_id']);
-			//echo '<pre>';print_r($check);exit;
+				foreach($post['teacher_ids'] as $lis){ 
+				$check[]=$this->Principal_model->get_teacher_list(ucfirst($lis),$detail['s_id']);
+				}
 			foreach($check as $list){
 				$mobiles[]=$list['mobile'];
 			}
 			$los=implode(',', $mobiles);
-			
+			//echo '<pre>';print_r($los);exit;
 			if($check!=array()){
 			$otp=isset($post['instractions'])?$post['instractions']:'';
             $username = $this->config->item('smsusername');
@@ -55,10 +56,30 @@ public function __construct()
 			'instractions'=>isset($post['instractions'])?$post['instractions']:'',
 			'otp'=>isset($otp)?$otp:'',
 			'opt_created_at'=>date('Y-m-d H:i:s'),
+			'status'=>1,
 			'created_at'=>date('Y-m-d H:i:s'),
 			'created_by'=>$login_details['u_id'],
 			);
-			$this->Principal_model->save_principal_assign_instractions($save_data);
+			$save=$this->Principal_model->save_principal_assign_instractions($save_data);
+			//echo '<pre>';print_r($save);exit;
+			if(count($save)>0){
+			if(isset($post['teacher_ids']) && count($post['teacher_ids'])>0){
+					$cnt=0;foreach($post['teacher_ids'] as $li){ 
+						  $add_data=array(
+						  'p_a_id'=>isset($save)?$save:'',
+						  's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
+						  'teacher_ids'=>$li,
+						  'status'=>1,
+						  'created_at'=>date('Y-m-d H:i:s'),
+						  'updated_at'=>date('Y-m-d H:i:s'),
+						  'created_by'=>isset($login_details['u_id'])?$login_details['u_id']:''
+						  );
+						   //echo '<pre>';print_r($add_data);exit;
+						  $this->Principal_model->save_teacher_name_ids($add_data);	
+
+				       $cnt++;}
+					}
+			}
             $ch2 = curl_init();
             curl_setopt($ch2, CURLOPT_URL, "http://trans.smsfresh.co/api/sendmsg.php");
             curl_setopt($ch2, CURLOPT_POST, 1);
@@ -67,8 +88,8 @@ public function __construct()
             $server_output = curl_exec($ch2);
 			//echo '<pre>';print_r($server_output);exit;
             curl_close($ch2);
-			$this->session->set_flashdata('success','Principal assign to teachers instructions sucessfully send');
-			redirect('principal');	
+		$this->session->set_flashdata('success','Principal assign to teachers instructions sucessfully send');
+		redirect('principal');	
 		}else{
 			$this->session->set_flashdata('error','technical problem will occurred. Please try again.');
 			redirect('principal');	
@@ -110,7 +131,26 @@ public function __construct()
 			redirect('home');
 		}
 	}
-	
+	public function lists()
+	{	
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+				if($login_details['role_id']==12 || $login_details['role_id']==3){
+					$detail=$this->School_model->get_resources_details($login_details['u_id']);
+					$data['teacher_list']=$this->Principal_model->get_principal_assign_instructions_teachers($detail['s_id']);
+					//echo'<pre>';print_r($data);exit;
+					$this->load->view('principal/list',$data);
+					$this->load->view('html/footer');
+				}else{
+						$this->session->set_flashdata('error',"you don't have permission to access");
+						redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('home');
+		}
+	}
 	
 	
 	
