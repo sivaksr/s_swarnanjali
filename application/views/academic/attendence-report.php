@@ -72,8 +72,9 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th>Class</th>
                   <th>Name</th>
-                  <th>Roll No</th>
+                  <th>Admission number</th>
 				  <?php foreach($students_attandances['hours'] as $lis){ ?>
                   <th><?php echo $lis['time']; ?></th>
 				  <?php } ?>
@@ -84,6 +85,7 @@
                 <tbody>
 				<?php foreach($student_attandance as $list){ ?>
 					 <tr>
+					<td><?php echo $list['classname']; ?><?php echo $list['section']; ?></td>
 					<td><?php echo $list['name']; ?></td>
 					<td><?php echo $list['roll_number']; ?> </td>
 					<?php $count='';$cnt=1;foreach($list['hours_list'] as $lis){ ?>

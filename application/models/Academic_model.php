@@ -30,9 +30,10 @@ class Academic_model extends CI_Model
 	}
 	
 	public function get_student_attendance_report($class_id,$date){
-		$this->db->select('concat(class_times.form_time,"-	",class_times.to_time) as time,users.u_id,users.name,users.roll_number,student_attendenc_reports.time as times,student_attendenc_reports.attendence,student_attendenc_reports.student_id')->from('student_attendenc_reports');
+		$this->db->select('concat(class_times.form_time,"-	",class_times.to_time) as time,users.u_id,users.name,users.roll_number,student_attendenc_reports.time as times,student_attendenc_reports.attendence,student_attendenc_reports.student_id,student_attendenc_reports.class_id,class_list.name as classname,class_list.section')->from('student_attendenc_reports');
 		$this->db->join('users ', 'users.u_id = student_attendenc_reports.student_id', 'left');
 		$this->db->join('class_times ', 'class_times.id = student_attendenc_reports.time', 'left');
+		$this->db->join('class_list ', 'class_list.id = student_attendenc_reports.class_id', 'left');
 		$this->db->where('student_attendenc_reports.class_id',$class_id);
 		$this->db->where("DATE_FORMAT(student_attendenc_reports.created_at,'%Y-%m-%d')",$date);
 		$this->db->where('users.role_id',7);
@@ -52,9 +53,10 @@ class Academic_model extends CI_Model
 		
 	}
 	public function get_hours_wise_attendance_report($id,$date){
-		$this->db->select('concat(class_times.form_time,"-	",class_times.to_time) as time,users.name,users.roll_number,student_attendenc_reports.time as times,student_attendenc_reports.attendence,student_attendenc_reports.student_id')->from('student_attendenc_reports');
+		$this->db->select('concat(class_times.form_time,"-	",class_times.to_time) as time,users.name,users.roll_number,student_attendenc_reports.time as times,student_attendenc_reports.attendence,student_attendenc_reports.student_id,student_attendenc_reports.class_id,class_list.name as classname,class_list.section')->from('student_attendenc_reports');
 		$this->db->join('users ', 'users.u_id = student_attendenc_reports.student_id', 'left');
 		$this->db->join('class_times ', 'class_times.id = student_attendenc_reports.time', 'left');
+		$this->db->join('class_list ', 'class_list.id = student_attendenc_reports.class_id', 'left');
 		$this->db->where('student_attendenc_reports.student_id',$id);
 		$this->db->where("DATE_FORMAT(student_attendenc_reports.created_at,'%Y-%m-%d')",$date);
 
