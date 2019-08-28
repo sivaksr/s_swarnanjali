@@ -79,32 +79,40 @@ class Home extends CI_Controller {
 		}
 	}
 	
-	public function forgotpost(){
-		$post=$this->input->post();
-		$check_email=$this->Home_model->check_email_exits($post['email']);
-			//echo'<pre>';print_r($check_email);exit;
-
+	public function forgotpost()
+	{	
+		if(!$this->session->userdata('userdetails'))
+		{
+			$post=$this->input->post();
+			$check_email=$this->Home_model->check_emails_exits($post['email']);
 			if(count($check_email)>0){
 				$this->load->library('email');
 				$this->email->set_newline("\r\n");
 				$this->email->set_mailtype("html");
-				$this->email->from($post['email']);
-				$this->email->to('admin@grfpublishers.org');
-				$this->email->subject('forgot - password');
+				$this->email->to($check_email['email']);
+				$this->email->from('admin@grfpublishers.org', 'Swarnanjali'); 
+				$this->email->subject('Forgot Password'); 
 				$body = "<b> Your Account login Password is </b> : ".$check_email['org_password'];
-				$this->email->message($body);
 				//echo'<pre>';print_r($body);exit;
-				if($this->email->send()){
-				$this->session->set_flashdata('success',"Password sent to your registered email address. Please Check your registered email address");
+
+				$this->email->message($body);
+				if ($this->email->send())
+				{
+					$this->session->set_flashdata('success',"Password sent to your registered email address. Please Check your registered email address");
+					redirect('home');
 				}else{
-				$this->session->set_flashdata('error',"In Localhost mail  didn't sent");	
+					$this->session->set_flashdata('error'," In Localhost mail  didn't sent");
+					redirect('home');
 				}
-				redirect('home');
+				
 			}else{
-				$this->session->set_flashdata('error',"Invalid email id. Please try again once");
-				redirect('home/forgotpassword');	
+				$this->session->set_flashdata('error',"Invalid login details. Please try again once");
+				redirect('home');
 			}
-		
+		}else{
+			$this->session->set_flashdata('error',"you don't have permission to access");
+			redirect('dashboard');
+		}
 	}
 	
 	

@@ -47,6 +47,11 @@ class Home_model extends CI_Model
 		$this->db->where('role_id',7);
 		return $this->db->get()->row_array();
 	}
+	public  function check_emails_exits($email){
+		$this->db->select('users.u_id,users.email,users.org_password')->from('users');
+		$this->db->where('users.email',$email);
+		return $this->db->get()->row_array();
+	}
 	public  function check_mobile_exits($mobile){
 		$this->db->select('mobile')->from('users');
 		$this->db->where('mobile',$mobile);
