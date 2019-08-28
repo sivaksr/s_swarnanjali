@@ -11,9 +11,20 @@ class Examination_model extends CI_Model
 	
 	public  function get_subject_list($s_id){
 		$this->db->select('class_subjects.id,class_subjects.subject')->from('class_subjects');
-		//$this->db->join('schools ', 'schools.s_id = class_subjects.s_id', 'left');
 		$this->db->where('class_subjects.s_id',$s_id);
 		$this->db->group_by('class_subjects.id');
+		return $this->db->get()->result_array();
+	}
+	public  function get_all_subject_mark_list($s_id,$class_id,$exam_type,$student_id){
+		$this->db->select('class_list.name as classname,class_list.section,users.name,users.roll_number,exam_marks_list.marks_obtained,exam_marks_list.student_id,exam_marks_list.max_marks,exam_marks_list.remarks,class_subjects.subject,exam_list.exam_type')->from('exam_marks_list');
+		$this->db->join('users ', 'users.u_id = exam_marks_list.student_id', 'left');
+		$this->db->join('class_subjects ', 'class_subjects.id = exam_marks_list.subject_id', 'left');
+		$this->db->join('exam_list ', 'exam_list.id = exam_marks_list.exam_id', 'left');
+		$this->db->join('class_list ', 'class_list.id = exam_marks_list.class_id', 'left');
+		$this->db->where('exam_marks_list.s_id',$s_id);
+		$this->db->where('exam_marks_list.class_id',$class_id);
+		$this->db->where('exam_marks_list.exam_id',$exam_type);
+		$this->db->where('exam_marks_list.student_id',$student_id);
 		return $this->db->get()->result_array();
 	}
 	public  function get_all_subject_list($s_id,$class_id){
@@ -523,7 +534,89 @@ public function get_class_wise_subjects($class_id){
 	$this->db->where('exam_list.status',1);
 	return $this->db->get()->row_array(); 
 	}	
-		
-		
+	
+    /* add marks */
+    public function get_addexam_class_list($s_id){
+	$this->db->select('exam_list.id,exam_list.class_id,class_list.id,class_list.name,class_list.section')->from('exam_list');
+	$this->db->join('class_list ', 'class_list.id = exam_list.class_id', 'left');
+	$this->db->where('exam_list.s_id',$s_id);
+	$this->db->where('exam_list.status',1);
+	$this->db->group_by('exam_list.class_id');
+	return $this->db->get()->result_array(); 
+	}	
+    public function get_addexam_subject_list($s_id){
+	$this->db->select('exam_list.id,exam_list.subject,class_subjects.id,class_subjects.subject')->from('exam_list');
+	$this->db->join('class_subjects ', 'class_subjects.id = exam_list.subject', 'left');
+	$this->db->where('exam_list.s_id',$s_id);
+	$this->db->where('exam_list.status',1);
+	$this->db->group_by('exam_list.subject');
+	return $this->db->get()->result_array(); 
+	}	
+    public function get_addexam_subjects_list($s_id,$class_id){
+	$this->db->select('exam_list.class_id,exam_list.id,exam_list.subject as subjects,class_subjects.subject')->from('exam_list');
+	$this->db->join('class_subjects ', 'class_subjects.id = exam_list.subject', 'left');
+	$this->db->where('exam_list.s_id',$s_id);
+	$this->db->where('exam_list.class_id',$class_id);
+	$this->db->where('exam_list.status',1);
+	$this->db->group_by('exam_list.subject');
+	return $this->db->get()->result_array(); 
+	}	
+    public function get_addexam_markswise_class_list($s_id){
+	$this->db->select('exam_marks_list.id,exam_marks_list.class_id,class_list.id,class_list.name,class_list.section')->from('exam_marks_list');
+	$this->db->join('class_list ', 'class_list.id = exam_marks_list.class_id', 'left');
+	$this->db->where('exam_marks_list.s_id',$s_id);
+	$this->db->where('exam_marks_list.status',1);
+	$this->db->group_by('exam_marks_list.class_id');
+	return $this->db->get()->result_array(); 
+	}	
+    public function get_addexam_markswise_subject_list($s_id){
+	$this->db->select('exam_marks_list.id,exam_marks_list.subject_id,class_subjects.id,class_subjects.subject')->from('exam_marks_list');
+	$this->db->join('class_subjects ', 'class_subjects.id = exam_marks_list.subject_id', 'left');
+	$this->db->where('exam_marks_list.s_id',$s_id);
+	$this->db->where('exam_marks_list.status',1);
+	$this->db->group_by('exam_marks_list.subject_id');
+	return $this->db->get()->result_array(); 
+	}	
+    public function get_exam_markswise_list($s_id){
+	$this->db->select('exam_marks_list.id,exam_marks_list.exam_id,exam_list.id,exam_list.exam_type')->from('exam_marks_list');
+	$this->db->join('exam_list ', 'exam_list.id = exam_marks_list.exam_id', 'left');
+	$this->db->where('exam_marks_list.s_id',$s_id);
+	$this->db->where('exam_marks_list.status',1);
+	$this->db->group_by('exam_marks_list.exam_id');
+	return $this->db->get()->result_array(); 
+	}
+	public function get_addexam_marks_subjects_list($s_id,$class_id){
+	$this->db->select('exam_marks_list.class_id,exam_marks_list.id,exam_marks_list.subject_id ,class_subjects.subject')->from('exam_marks_list');
+	$this->db->join('class_subjects ', 'class_subjects.id = exam_marks_list.subject_id', 'left');
+	$this->db->where('exam_marks_list.s_id',$s_id);
+	$this->db->where('exam_marks_list.class_id',$class_id);
+	$this->db->where('exam_marks_list.status',1);
+	$this->db->group_by('exam_marks_list.subject_id');
+	return $this->db->get()->result_array(); 
+	}	
+
+    public function get_exam_marks_subjects_list($s_id,$class_id){
+	$this->db->select('exam_marks_list.class_id,exam_marks_list.id,exam_marks_list.subject_id ,class_subjects.subject')->from('exam_marks_list');
+	$this->db->join('class_subjects ', 'class_subjects.id = exam_marks_list.subject_id', 'left');
+	$this->db->where('exam_marks_list.s_id',$s_id);
+	$this->db->where('exam_marks_list.class_id',$class_id);
+	$this->db->where('exam_marks_list.status',1);
+	$this->db->group_by('exam_marks_list.subject_id');
+	return $this->db->get()->result_array(); 
+	}	
+   public function get_exam_types_list($s_id,$class_id){
+	$this->db->select('exam_list.id,exam_list.exam_type')->from('exam_list');
+	$this->db->where('exam_list.s_id',$s_id);
+	$this->db->where('exam_list.class_id',$class_id);
+	$this->db->where('exam_list.status',1);
+	$this->db->group_by('exam_list.exam_type');
+	return $this->db->get()->result_array(); 
+	}	
+
+
+
+
+
+	
 		
  }				 

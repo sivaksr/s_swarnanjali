@@ -564,28 +564,10 @@ class Examination extends In_frontend {
 			if($login_details['role_id']==8 || $login_details['role_id']==9){
 				$detail=$this->School_model->get_resources_details($login_details['u_id']);
 				$post=$this->input->post();
-				//echo '<pre>';print_r($post);exit
-				if(isset($post['signup'])&& $post['signup']=='submit'){
-					$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$post['class_id'],$post['subject'],$post['exam_type'],$post['student_id']);
-				}else{
-				//$subject_list=$this->Examination_model->get_all_subject_list($detail['s_id'],$post['class_id']);
-               //echo '<pre>';print_r($subject_list);exit;
-				
-				//$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$list,$post['subject'],$post['exam_type'],$post['student_id']);
-				
-				}
-				
-				if(isset($post['subject'])&& $post['subject']=='ALL'){
-				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
-				//echo '<pre>';print_r($data['subject_list']);exit;
-				}
-				
-				$data['student_name_list']=$this->Examination_model->get_all_student_name_list($detail['s_id']);
-				//echo '<pre>';print_r($data);exit;
+				//echo '<pre>';print_r($post);exit;
 				$data['class_list']=$this->Examination_model->get_addexam_markswise_class_list($detail['s_id']);
 				$data['subject_list']=$this->Examination_model->get_addexam_markswise_subject_list($detail['s_id']);
 				$data['exam_list']=$this->Examination_model->get_exam_markswise_list($detail['s_id']);
-				//$data['exam_list']=$this->Examination_model->get_exam_subject_wise_list($detail['s_id']);
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('examination/view-marks',$data);
 				$this->load->view('html/footer');
@@ -599,6 +581,35 @@ class Examination extends In_frontend {
 			redirect('home');
 		}
 	}
+	public  function marksview(){
+		if($this->session->userdata('userdetails'))
+		{
+			$login_details=$this->session->userdata('userdetails');
+          //echo '<pre>';print_r($login_details);exit;
+			if($login_details['role_id']==8 || $login_details['role_id']==9){
+				$detail=$this->School_model->get_resources_details($login_details['u_id']);
+				$post=$this->input->post();
+				if(isset($post['subject'])&& $post['subject']=='All'){
+				$data['student_list']=$this->Examination_model->get_all_subject_mark_list($detail['s_id'],$post['class_id'],$post['exam_type'],$post['student_id']);
+				}else{
+				$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$post['class_id'],$post['subject'],$post['exam_type'],$post['student_id']);		
+				}
+				$data['class_list']=$this->Examination_model->get_addexam_markswise_class_list($detail['s_id']);
+				$data['subject_list']=$this->Examination_model->get_addexam_markswise_subject_list($detail['s_id']);
+				$data['exam_list']=$this->Examination_model->get_exam_markswise_list($detail['s_id']);
+				$this->load->view('examination/marks-view',$data);
+				$this->load->view('html/footer');
+				
+			}else{
+					$this->session->set_flashdata('error',"You have no permission to access");
+					redirect('dashboard');
+				}
+		}else{
+			$this->session->set_flashdata('error','Please login to continue');
+			redirect('home');
+		}
+	}
+	
 	
 	public  function addsyllabus(){
 		if($this->session->userdata('userdetails'))
@@ -1371,45 +1382,7 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 			redirect('home');
 		}
 	}
-    public  function marksview(){
-		if($this->session->userdata('userdetails'))
-		{
-			$login_details=$this->session->userdata('userdetails');
-          //echo '<pre>';print_r($login_details);exit;
-				$detail=$this->School_model->get_resources_details($login_details['u_id']);
-				$post=$this->input->post();
-				//echo '<pre>';print_r($post);exit
-				if(isset($post['signup'])&& $post['signup']=='submit'){
-					$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$post['class_id'],$post['subject'],$post['exam_type'],$post['student_id']);
-				}else{
-				//$subject_list=$this->Examination_model->get_all_subject_list($detail['s_id'],$post['class_id']);
-               //echo '<pre>';print_r($subject_list);exit;
-				
-				//$data['student_list']=$this->Examination_model->get_student_withmarks_list($detail['s_id'],$list,$post['subject'],$post['exam_type'],$post['student_id']);
-				
-				}
-				
-				if(isset($post['subject'])&& $post['subject']=='ALL'){
-				$data['subject_list']=$this->Examination_model->get_subject_list($detail['s_id']);
-				//echo '<pre>';print_r($data['subject_list']);exit;
-				}
-				
-				$data['student_name_list']=$this->Examination_model->get_all_student_name_list($detail['s_id']);
-				//echo '<pre>';print_r($data);exit;
-				$data['class_list']=$this->Examination_model->get_addexam_markswise_class_list($detail['s_id']);
-				$data['subject_list']=$this->Examination_model->get_addexam_markswise_subject_list($detail['s_id']);
-				$data['exam_list']=$this->Examination_model->get_exam_markswise_list($detail['s_id']);
-				//$data['exam_list']=$this->Examination_model->get_exam_subject_wise_list($detail['s_id']);
-				//echo '<pre>';print_r($data);exit;
-				$this->load->view('examination/marks-view',$data);
-				$this->load->view('html/footer');
-				
-			
-		}else{
-			$this->session->set_flashdata('error','Please login to continue');
-			redirect('home');
-		}
-	}
+    
 	public function get_exam_marks_subjects_list(){
 	if($this->session->userdata('userdetails'))
 		{

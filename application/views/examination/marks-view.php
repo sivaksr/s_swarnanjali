@@ -16,7 +16,7 @@
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
 								<div class="">
-								<select id="class_id" name="class_id" onchange="get_student_list(this.value); get_exam_marks_subjects_list(this.value);" class="form-control" >
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value); get_addexam_marks_subjects_list(this.value);" class="form-control" >
 								<option value="">Select</option>
 								<?php foreach ($class_list as $list){ ?>
 								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
@@ -161,11 +161,11 @@
   
   </script>
   <script>
- function get_exam_marks_subjects_list(class_id){
+  function get_addexam_marks_subjects_list(class_id){
 	//alert('haii');
 	if(class_id !=''){
 		    jQuery.ajax({
-   			url: "<?php echo base_url('examination/get_exam_marks_subjects_list');?>",
+   			url: "<?php echo base_url('examination/get_addexam_marks_subjects_list');?>",
    			data: {
 				class_id: class_id,
 			},
@@ -178,6 +178,7 @@
 						//alert(parsedData.list.length);
 							$('#subject').empty();
 							$('#subject').append("<option>select</option>");
+							$('#subject').append("<option value='All'>All</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
 							$('#subject').append("<option value="+parsedData.list[i].subject_id+">"+parsedData.list[i].subject+"</option>");                      
@@ -284,35 +285,6 @@ function get_student_list(class_id){
 	   }
 }
 
-function get_student_allsubjects_list(student_id){
-	if(student_id !=''){
-		    jQuery.ajax({
-   			url: "<?php echo base_url('Examination/get_student_allsubjects_list');?>",
-   			data: {
-				student_id: student_id,
-			},
-   			type: "POST",
-   			format:"Json",
-   					success:function(data){
-						
-						if(data.msg=1){
-							var parsedData = JSON.parse(data);
-						//alert(parsedData.list.length);
-							$('#subject').empty();
-							$('#subject').append("<option>select</option>");
-							for(i=0; i < parsedData.list.length; i++) {
-								//console.log(parsedData.list);
-							$('#subject').append("<option value="+parsedData.list[i].name+">"+parsedData.list[i].subject+"</option>");                      
-                    
-								
-							 
-							}
-						}
-						
-   					}
-           });
-	   }
-}
 
 
 

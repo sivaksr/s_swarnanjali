@@ -11,7 +11,7 @@
             <!-- /.box-header -->
             <!-- form start -->
 			<div style="padding:20px;">
-            <form id="defaultForm" method="post" class="" action="<?php echo base_url('examination/viewmarks'); ?>">
+            <form id="defaultForm" method="post" class="" action="<?php echo base_url('examination/marksview'); ?>">
 			<div class="col-md-4">
 							<div class="form-group">
 								<label class=" control-label">Class list</label>
@@ -178,6 +178,7 @@
 						//alert(parsedData.list.length);
 							$('#subject').empty();
 							$('#subject').append("<option>select</option>");
+							$('#subject').append("<option value='All'>All</option>");
 							for(i=0; i < parsedData.list.length; i++) {
 								//console.log(parsedData.list);
 							$('#subject').append("<option value="+parsedData.list[i].subject_id+">"+parsedData.list[i].subject+"</option>");                      

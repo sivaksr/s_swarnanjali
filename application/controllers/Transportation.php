@@ -723,7 +723,13 @@ $editdata_check= $this->Transportation_model->get_saved_route_numbers_details($p
 					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$post=$this->input->post();	
 					//echo'<pre>';print_r($post);exit;
+						
 					$cnt=0;foreach($post['route_id'] as $lis){
+						$check=$this->Transportation_model->check_transfprtaion_exits($lis,$post['stops'][$cnt],$post['to_stops'][$cnt]);
+						if(count($check)>0){
+						$this->session->set_flashdata('error',"transportation fee details already exists. Please try again.");
+						redirect('transportation/transport_fee_details');
+						}
 							$save_data = array(
 							's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 							'route_id'=>$lis,
