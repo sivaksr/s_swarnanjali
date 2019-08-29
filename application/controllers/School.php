@@ -79,7 +79,7 @@ class School extends In_frontend {
 					if(isset($post['school_id']) && $post['school_id']!=''){
 						$details=$this->School_model->get_school_details($post['school_id']);
 						if($details['scl_email_id']!=$post['scl_email_id']){
-							$emailcheck= $this->Home_model->check_email_exits($post['scl_email_id']);
+							$emailcheck= $this->Home_model->check_emails_exits($post['scl_email_id']);
 							if(count($emailcheck)>0){
 								$this->session->set_flashdata('error','Email id already exists.please use another Email id');
 								redirect('school/add/'.base64_encode(1).'/'.base64_encode($post['school_id']));
@@ -107,7 +107,7 @@ class School extends In_frontend {
 									}
 					
 					}else{
-						$emailcheck= $this->Home_model->check_email_exits($post['scl_email_id']);
+						$emailcheck= $this->Home_model->check_emails_exits($post['scl_email_id']);
 							if(count($emailcheck)>0){
 								$this->session->set_flashdata('error','Email id already exists.please use another Email id');
 								redirect('school/add/'.base64_encode(1));
