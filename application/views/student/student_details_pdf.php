@@ -159,10 +159,7 @@
 						<td>Date Of Birth</td>
 						<th>: <?php echo isset($student_list['dob'])?$student_list['dob']:''?></th>
 				  </tr>
-				   <tr>
-						<td>Email Id</td>
-						<th>: <?php echo isset($student_list['email'])?$student_list['email']:''?></th>
-				  </tr>
+				   
 				  <tr>
 						<td>Address</td>
 						<th style="max-width:200px;">: <?php echo isset($student_list['address'])?$student_list['address']:''?></th>
