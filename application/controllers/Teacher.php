@@ -33,7 +33,7 @@ public function __construct()
 				if($login_details['role_id']==3){
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 				$post=$this->input->post();
-					$check=$this->Teacher_model->check_module_exits($post['modules']);
+					$check=$this->Teacher_model->check_module_exits($detail['s_id'],$post['modules']);
 					if(($check)>0){
 						$this->session->set_flashdata('error',"Teacher Module already exists. Please use another Module");
 						redirect('teacher/add');
@@ -112,7 +112,7 @@ public function __construct()
 				$post=$this->input->post();
 				$edit_modules=$this->Teacher_model->edit_teacher_modules($detail['s_id'],$post['t_m_id']);
 				if($edit_modules['modules']!=$post['modules']){
-					$check=$this->Teacher_model->check_module_exits($post['modules']);
+					$check=$this->Teacher_model->check_module_exits($detail['s_id'],$post['modules']);
 					if(($check)>0){
 						$this->session->set_flashdata('error',"Teacher Module already exists. Please use another Module");
 						redirect('teacher/edit/'.base64_encode($post['t_m_id']));

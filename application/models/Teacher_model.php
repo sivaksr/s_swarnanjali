@@ -25,9 +25,10 @@ class Teacher_model extends CI_Model
 	$this->db->where('teacher_modules.t_m_id',$t_m_id);
 	return $this->db->get()->row_array();	
 	}
-	public function check_module_exits($modules){
+	public function check_module_exits($s_id,$modules){
 	$this->db->select('teacher_modules.*')->from('teacher_modules');
 	$this->db->where('teacher_modules.modules',$modules);
+	$this->db->where('teacher_modules.s_id',$s_id);
 	$this->db->where('teacher_modules.status',1);
 	return $this->db->get()->row_array();	
 	}
