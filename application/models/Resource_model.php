@@ -28,8 +28,16 @@ class Resource_model extends CI_Model
 		$this->db->where('users.u_id',$u_id);
 		return $this->db->get()->row_array();
 	}
-	
-	
+	public  function check_email_exits($email){
+		$this->db->select('email')->from('users');
+		$this->db->where('email',$email);
+		return $this->db->get()->row_array();
+	}
+	public  function check_mobile_exits($mobile){
+		$this->db->select('u_id,mobile,role_id')->from('users');
+		$this->db->where('mobile',$mobile);
+		return $this->db->get()->row_array();
+	}
 	
 
 }

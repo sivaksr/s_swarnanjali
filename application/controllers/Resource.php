@@ -7,7 +7,7 @@ class Resource extends In_frontend {
 	public function __construct() 
 	{
 		parent::__construct();	
-		
+		$this->load->model('Resource_model');
 		}
 	public function index()
 	{	
@@ -38,12 +38,19 @@ class Resource extends In_frontend {
 			$login_details=$this->session->userdata('userdetails');
 			if($login_details['role_id']==2){
 				$post=$this->input->post();
-				$check_email=$this->Home_model->check_email_exits($post['email']);
+				//echo'<pre>';print_r($post);exit;
+				$check_email=$this->Resource_model->check_email_exits($post['email']);
 				if(count($check_email)>0){
 					$this->session->set_flashdata('error',"Email address already exists. Please another email address.");
 					redirect('resource');
 				}
-				
+				if($post['role_id']==6){
+				$check_mobile=$this->Resource_model->check_mobile_exits($post['phone']);
+				if(count($check_mobile)>0){
+					$this->session->set_flashdata('error',"Mobile Number already exists. Please another Mobile Number.");
+					redirect('resource');
+				}
+				}
 					if(isset($_FILES['image']['name']) && $_FILES['image']['name']!=''){
 						$temp = explode(".", $_FILES["image"]["name"]);
 							$image = round(microtime(true)) . '.' . end($temp);
@@ -119,14 +126,24 @@ class Resource extends In_frontend {
 				$post=$this->input->post();
 				//echo "<pre>";print_r($post);exit;
 				$detail=$this->Resource_model->get_resources_details($post['u_id']);
+				//echo "<pre>";print_r($detail);exit;
 				if($detail['email']!=$post['email']){
-					$check_email=$this->Home_model->check_email_exits($post['email']);
+					$check_email=$this->Resource_model->check_email_exits($post['email']);
 						if(count($check_email)>0){
 							$this->session->set_flashdata('error',"Email address already exists. Please another email address.");
 							redirect('resource/edit/'.base64_encode($post['u_id']));
 						}
 				}
+				if($detail['role_id']==6){
+				if($detail['mobile']!=$post['phone']){
+					$check_mobile=$this->Resource_model->check_mobile_exits($post['phone']);
+						if(count($check_mobile)>0){
+							$this->session->set_flashdata('error',"Mobile Number already exists. Please another Mobile Number.");
+							redirect('resource/edit/'.base64_encode($post['u_id']));
+						}
+				}
 				
+				}
 					if(isset($_FILES['image']['name']) && $_FILES['image']['name']!=''){
 						$temp = explode(".", $_FILES["image"]["name"]);
 							unlink('assets/adminpic/'.$detail['profile_pic']);

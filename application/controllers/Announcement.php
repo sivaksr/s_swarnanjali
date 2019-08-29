@@ -361,15 +361,16 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
 			foreach($check as $list){
 				$mobiles[]=$list['mobile'];
 			}
+
 			$los=implode(',', $mobiles);
-		//echo '<pre>';print_r($los);exit;
+		//echo '<pre>';print_r($post);exit;
 
 			if($check!=array()){
 			$otp=isset($post['msg'])?$post['msg']:'';
             $username = $this->config->item('smsusername');
             $pass     = $this->config->item('smspassword');
             $sender   = $this->config->item('sender');
-            $msg      =$otp;
+            $msg      =isset($otp)?$otp:'';
 			$save_data=array(
 			's_id'=>isset($detail['s_id'])?$detail['s_id']:'',
 			'sms'=>isset($post['sms'])?$post['sms']:'',
@@ -410,7 +411,7 @@ $data['notification_sent_list']=$this->Announcement_model->get_all_sent_notifica
 			//echo '<pre>';print_r($server_output);exit;
             curl_close($ch2);
 			$this->session->set_flashdata('success',"Message successfully sent");
-			redirect('announcement/sms');
+			redirect('announcement/smslists');
 			}else{
 			$this->session->set_flashdata('error','technical problem will occurred. Please try again.');
 			redirect('announcement/sms');	

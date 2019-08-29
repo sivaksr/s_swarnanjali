@@ -15,17 +15,12 @@
                         <div class="col-md-12">
                             <!-- Custom Tabs -->
                             <div class="nav-tabs-custom">
-							<ul class="nav nav-tabs">
-              <li class="<?php if(isset($tab) && $tab==''){ echo "active";} ?>"><a href="#tab_1" data-toggle="tab">Add Instructions
-</a></li>
-             
-            </ul>
+							
 							
                                 
 
                                 <div class="tab-content">
                                     
-             <div class="tab-pane active<?php if(isset($tab) && $tab==''){ echo "active";} ?>" id="tab_1">
                                        <form id="defaultForm" method="post" class="" action="<?php echo base_url('announcement/smspost');?>">
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -100,7 +95,7 @@
              
 									
 									
-                                </div>
+                                
                                 <!-- /.tab-pane -->
 
                             </div>
