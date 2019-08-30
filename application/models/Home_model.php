@@ -38,29 +38,34 @@ class Home_model extends CI_Model
 		$this->db->select('parent_email,mobile')->from('users');
 		$this->db->where('parent_email',$email);
 		$this->db->where('mobile',$mobile);
+		$this->db->where('status',1);
 		$this->db->where('role_id',7);
 		return $this->db->get()->row_array();
 	}
 	public  function check_email_exits($email){
 		$this->db->select('parent_email')->from('users');
 		$this->db->where('parent_email',$email);
+		$this->db->where('status',1);
 		$this->db->where('role_id',7);
 		return $this->db->get()->row_array();
 	}
 	public  function check_emails_exits($email){
 		$this->db->select('users.u_id,users.email,users.org_password')->from('users');
 		$this->db->where('users.email',$email);
+		$this->db->where('users.status',1);
 		return $this->db->get()->row_array();
 	}
 	public function check_email_or_mobile_exits($email){
 	$this->db->select('users.u_id,users.mobile,users.parent_email,users.parent_org_password')->from('users');
 		$this->db->or_where('users.parent_email',$email);
 		$this->db->or_where('users.mobile',$email);
+		$this->db->where('users.status',1);
 		return $this->db->get()->row_array();
 	}
 	public  function check_mobile_exits($mobile){
 		$this->db->select('mobile')->from('users');
 		$this->db->where('mobile',$mobile);
+		$this->db->where('status',1);
 		$this->db->where('role_id',7);
 		return $this->db->get()->row_array();
 	}

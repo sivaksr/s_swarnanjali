@@ -173,7 +173,9 @@ class Principal_model extends CI_Model
 		return $this->db->insert_id();
 	}
 	  public function get_bonefi_certificate_format($s_id){
-	  $this->db->select('*')->from('bonfi_cer');
+	  $this->db->select('bonfi_cer.*')->from('bonfi_cer');
+	  $this->db->where('bonfi_cer.s_id',$s_id);
+	  $this->db->where('bonfi_cer.status',1);
 	  return $this->db->get()->row_array();
 	}	  
     public function update_bonefi_certificate_format($data){

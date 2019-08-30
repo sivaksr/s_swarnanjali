@@ -118,6 +118,7 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th>Class</th>
                   <th>Student Name</th>
                   <th>Student Roll No</th>
 				  <th>Department</th>
@@ -137,6 +138,7 @@
 				<?php if(isset($issued_book_list) && count($issued_book_list)>0){ ?>
 					<?php foreach($issued_book_list as $list){ ?>
 					<tr>
+					  <td><?php echo $list['classname']; ?><?php echo $list['section']; ?></td>
 					  <td><?php echo $list['name']; ?></td>
 					  <td><?php echo $list['roll_number']; ?></td>
 					  <td><?php echo $list['department']; ?></td>

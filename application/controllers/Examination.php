@@ -1322,9 +1322,9 @@ $data['notification_sent_list']=$this->Examination_model->get_all_sent_notificat
 			$class_name=base64_decode($this->uri->segment(4));
 			$id=base64_decode($this->uri->segment(5));
 		$filename=$emp_id;
-		$data['time_table_list']=$this->Examination_model->get_time_table_list($emp_id,$class_name);
-		$data['student_details']=$this->Examination_model->student_details($id);
-        $data['exam_type']=$this->Examination_model->exam_type($emp_id);
+		$data['time_table_list']=$this->Examination_model->get_time_table_list($detail['s_id'],$emp_id,$class_name);
+		$data['student_details']=$this->Examination_model->student_details($detail['s_id'],$id);
+        $data['exam_type']=$this->Examination_model->exam_type($detail['s_id'],$emp_id);
 
 			//echo'<pre>';print_r($data);exit;
 

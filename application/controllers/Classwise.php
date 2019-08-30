@@ -497,8 +497,9 @@ public function __construct()
 		{
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==3){
+					$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 					$post=$this->input->post();
-					$subject_list=$this->Subject_model->get_class_wise_teachers($post['class_id']);
+					$subject_list=$this->Subject_model->get_class_wise_teachers($detail['s_id'],$post['class_id']);
 					 //echo'<pre>';print_r($post);exit;
 					 //echo $this->db->last_query();exit;
 					if(count($subject_list)>0){

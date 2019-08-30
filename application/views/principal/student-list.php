@@ -21,9 +21,27 @@
 
                                 <div class="tab-content">
                                     
-                                       <form id="defaultForm" target='_blank' method="post" class="" action="">
+                                       <form id="defaultForm" target='_blank' method="post" class="" action="<?php echo base_url('student/yearwiselist');?>">
                                             <div class="row">
-                                                <div class="col-md-6">
+											
+											
+											<div class="col-md-4">
+							<div class="form-group">
+								<label class=" control-label">Class list</label>
+								<div class="">
+								<select id="class_id" name="class_id" onchange="get_student_list(this.value);" class="form-control" >
+								<option value="">Select</option>
+								<?php foreach ($class_list as $list){ ?>
+								<option value="<?php echo $list['id']; ?>"><?php echo $list['name'].' '.$list['section']; ?></option>
+								<?php }?>
+								</select>
+								</div>
+							</div>
+                        </div>
+											
+											
+											
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class=" control-label">Year</label>
                                                         <div class="">
@@ -79,6 +97,13 @@ $(document).ready(function() {
                  validators: {
 					notEmpty: {
 						message: 'Year is required'
+					}
+				}
+            },
+			 class_id: {
+                 validators: {
+					notEmpty: {
+						message: 'Class is required'
 					}
 				}
             },

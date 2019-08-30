@@ -1033,7 +1033,7 @@ $data['route_stops']=$this->Transportation_model->routes_stops($data['transporti
 					$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
                      $data['tab']=base64_decode($this->uri->segment(3));
 					
-					$data['routes']=$this->Transportation_model->get_routes_number_students();
+					$data['routes']=$this->Transportation_model->get_routes_number_students($detail['s_id']);
                           //echo'<pre>';print_r($data['routes']);exit;
 					$data['stops_student']=$this->Transportation_model->get_student_stops($detail['s_id']);
 					$data['stops']=$this->Transportation_model->get_stops();

@@ -163,6 +163,7 @@
                 <tr>
                   <th>#</th>
                   <th>Name</th>
+                  <th>Email</th>
                   <th>Role</th>
                   <th>Mobile Number</th>
                   <th>Qualification</th>
@@ -178,6 +179,7 @@
 							<tr>
 								  <td><?php echo $cnt; ?></td>
 								  <td><?php echo $list['name']; ?></td>
+								  <td><?php echo $list['email']; ?></td>
 								  <td><?php echo $list['role_name']; ?></td>
 								  <td><?php echo $list['mobile']; ?></td>
 								  <td><?php echo $list['qalification']; ?></td>
@@ -301,6 +303,7 @@
                   <tr>
                   <th>#</th>
                   <th>Name</th>
+				   <th>Email</th>
 				   <th>Role</th>
                   <th>Mobile Number</th>
                   <th>Qualification</th>

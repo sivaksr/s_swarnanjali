@@ -90,10 +90,11 @@ class Subject_model extends CI_Model
 	$this->db->where('class_list.status',1);
 	return $this->db->get()->result_array(); 
 	} 
-	public function get_class_wise_teachers($class_id){
+	public function get_class_wise_teachers($s_id,$class_id){
 	$this->db->select('class_teachers.*,users.name,users.u_id')->from('class_teachers');
 	$this->db->join('users', 'users.u_id = class_teachers.teacher_id', 'left');
 	$this->db->where('class_teachers.class_id',$class_id);
+	$this->db->where('class_teachers.s_id',$s_id);
 	$this->db->where('class_teachers.status',1);
 	return $this->db->get()->result_array(); 
 	}  

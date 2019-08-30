@@ -807,7 +807,8 @@ public function __construct()
 			$login_details=$this->session->userdata('userdetails');
 				if($login_details['role_id']==10){
 					$post=$this->input->post();
-					$book_list=$this->Librarian_model->get_student_issued_book_list($post['student_id']);
+					$detail=$this->Librarian_model->get_resources_details($login_details['u_id']);
+					$book_list=$this->Librarian_model->get_student_issued_book_list($detail['s_id'],$post['student_id']);
 					
 					//echo $this->db->last_query();exit;
 					if(count($book_list)>0){

@@ -506,10 +506,11 @@ class Transportation_model extends CI_Model
 	 
 	 /* student register*/
 	 
-	 public function get_routes_number_students(){
+	 public function get_routes_number_students($s_id){
 	 $this->db->select('transport_fee.f_id,transport_fee.route_id,route_numbers.route_no')->from('transport_fee');
 	 $this->db->join('route_numbers', 'route_numbers.r_id = transport_fee.route_id', 'left');
 		 $this->db->where('transport_fee.status',1);
+		 $this->db->where('transport_fee.s_id',$s_id);
 		 $this->db->group_by('transport_fee.route_id');
 		 return $this->db->get()->result_array(); 
 	}
