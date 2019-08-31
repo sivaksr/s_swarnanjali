@@ -97,6 +97,7 @@ table, th, td {
 		
 	  </tr>
 	   <tr>
+		<th>S.NO</th>
 		<th>Name</th>
 		<th>Gender</th>
 		<th>Class</th>
@@ -105,12 +106,14 @@ table, th, td {
 		<th>Parent Name</th>
 		<th>Parent Email</th>
 		<th>Bus Transport</th>
+		<th>Date</th>
 	  </tr>
 	 
 	  
 	 <?php if(isset($student_list) && count($student_list)>0){ ?>
-	 <?php foreach($student_list as $list){?>
+	 <?php $cnt=1;foreach($student_list as $list){?>
 	  <tr>
+		<td><?php echo $cnt; ?></td>
 		<td><?php echo isset($list['name'])?$list['name']:''; ?></td>
 		<td><?php echo isset($list['gender'])?$list['gender']:''; ?></td>
 		<td><?php echo isset($list['classname'])?$list['classname']:''; ?><?php echo isset($list['section'])?$list['section']:''; ?></td>
@@ -119,8 +122,9 @@ table, th, td {
 		<td><?php echo isset($list['parent_name'])?$list['parent_name']:''; ?></td>
 		<td><?php echo isset($list['parent_email'])?$list['parent_email']:''; ?></td>
 		<td><?php echo isset($list['bus_transport'])?$list['bus_transport']:''; ?></td>
+		<td><?php echo isset($list['create_at'])?$list['create_at']:''; ?></td>
 	  </tr>
-	  <?php } ?>
+	  <?php $cnt++;} ?>
 	 <?php } ?>
 	  
 	</table>

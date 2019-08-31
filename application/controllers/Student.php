@@ -1368,7 +1368,7 @@ public function edithomeworkpost()
 				$detail=$this->Student_model->get_resources_details($login_details['u_id']);
 				 $post=$this->input->post();
 				 if(isset($post['signup'])&& $post['signup']=='submit'){
-			   $data['student_list']=$this->Student_model->get_year_wise_student_list($detail['s_id'],$post['year']);
+			   $data['student_list']=$this->Student_model->get_year_wise_student_list($detail['s_id'],$post['class_id'],$post['year']);
 			 //echo '<pre>';print_r($data);exit;
 			 if($data['student_list']!=array()){
 			 $path = rtrim(FCPATH,"/");

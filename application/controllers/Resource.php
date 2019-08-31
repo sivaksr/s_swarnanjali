@@ -44,13 +44,7 @@ class Resource extends In_frontend {
 					$this->session->set_flashdata('error',"Email address already exists. Please another email address.");
 					redirect('resource');
 				}
-				if($post['role_id']==6){
-				$check_mobile=$this->Resource_model->check_mobile_exits($post['phone']);
-				if(count($check_mobile)>0){
-					$this->session->set_flashdata('error',"Mobile Number already exists. Please another Mobile Number.");
-					redirect('resource');
-				}
-				}
+				
 					if(isset($_FILES['image']['name']) && $_FILES['image']['name']!=''){
 						$temp = explode(".", $_FILES["image"]["name"]);
 							$image = round(microtime(true)) . '.' . end($temp);
@@ -134,16 +128,7 @@ class Resource extends In_frontend {
 							redirect('resource/edit/'.base64_encode($post['u_id']));
 						}
 				}
-				if($detail['role_id']==6){
-				if($detail['mobile']!=$post['phone']){
-					$check_mobile=$this->Resource_model->check_mobile_exits($post['phone']);
-						if(count($check_mobile)>0){
-							$this->session->set_flashdata('error',"Mobile Number already exists. Please another Mobile Number.");
-							redirect('resource/edit/'.base64_encode($post['u_id']));
-						}
-				}
-				
-				}
+			
 					if(isset($_FILES['image']['name']) && $_FILES['image']['name']!=''){
 						$temp = explode(".", $_FILES["image"]["name"]);
 							unlink('assets/adminpic/'.$detail['profile_pic']);

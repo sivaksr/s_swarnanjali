@@ -583,11 +583,12 @@ class Student_model extends CI_Model
 	}
 	
    /* student year wise list */
-   public function get_year_wise_student_list($s_id,$year){
+   public function get_year_wise_student_list($s_id,$class_id,$year){
 	$this->db->select('users.*,class_list.name as classname,class_list.section')->from('users');
 	$this->db->join('class_list ', 'class_list.id = users.class_name', 'left');
 	$this->db->where("DATE_FORMAT(users.create_at,'%Y')",$year);
 	$this->db->where("users.s_id",$s_id);
+	$this->db->where("users.class_name",$class_id);
 	$this->db->where("users.role_id",7);
 	$this->db->where("users.status",1);
 	return $this->db->get()->result_array();
