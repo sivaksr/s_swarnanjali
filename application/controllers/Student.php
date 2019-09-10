@@ -25,7 +25,7 @@ public function __construct()
 
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('student/add-student',$data);
-				$this->load->view('html/footer');
+				$this->load->view('html/footer2');
 			}else{
 					$this->session->set_flashdata('error',"you don't have permission to access");
 					redirect('dashboard');
@@ -74,7 +74,7 @@ public function __construct()
 				$data['class_list']=$this->Student_model->get_school_class_list($detail['s_id']);
 				//echo '<pre>';print_r($data);exit;
 				$this->load->view('student/edit-student',$data);
-				$this->load->view('html/footer');
+				$this->load->view('html/footer2');
 			}else{
 					$this->session->set_flashdata('error',"you don't have permission to access");
 					redirect('dashboard');

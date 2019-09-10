@@ -1,4 +1,6 @@
-
+<head>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all">
+</head>
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -357,7 +359,27 @@
  </div>
  </div>
 
- 
+ <script>
+ $(function() {
+  var $dp1 = $("#datepicker1");
+  $dp1.datepicker({
+    changeYear: true,
+    changeMonth: true,
+      minDate:0,
+    dateFormat: "mm/dd/yy",
+    yearRange: "-100:+80",
+  });
+
+  var $dp2 = $("#datepicker");
+  $dp2.datepicker({
+    changeYear: true,
+    changeMonth: true,
+	maxDate:0,
+    yearRange: "-80:+80",
+    dateFormat: "mm/dd/yy",
+  });
+});
+</script>
  <script>
 
 $(function(){
@@ -382,9 +404,6 @@ $(function(){
 </script>
  <script>
  $(document).ready(function() {
- $('#datepicker1').datepicker({
-      autoclose: true
-    });
  
    $('#defaultForm').bootstrapValidator({
 //       
@@ -402,9 +421,6 @@ $(function(){
             },
 			dob: {
                 validators: {
-					notEmpty: {
-								message: 'Date of Birth is required'
-						},
                     date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
@@ -577,9 +593,6 @@ $(function(){
             },
 			doj: {
                  validators: {
-					 notEmpty: {
-								message: 'Date of Join is required'
-						},
 					date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
