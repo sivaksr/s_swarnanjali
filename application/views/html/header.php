@@ -536,6 +536,15 @@
 					<li><a href="<?php echo base_url('student/homeworklist'); ?>">list</a></li>
 				  </ul>
 				</li>
+				
+				<li class="treeview">
+				  <a href="<?php echo base_url('principal/lists'); ?>">
+					<i class="fa fa-user"></i> <span>Principal assigned instructions to teacher</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+			</li>
 		<?php }else if($userdetails['role_id']==8){ ?>
 			
 			<!--<li class="treeview">
