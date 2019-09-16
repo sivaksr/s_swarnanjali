@@ -282,7 +282,7 @@
                                 <input type="text" class="form-control" name="parent_email" value="<?php echo isset($student_list['parent_email'])?$student_list['parent_email']:''; ?>" placeholder="Enter Email address" />
                             </div>
                         </div>
-							<div class="row">
+							<!--<div class="row">
 								<div class=" col-md-6">
 									<div class="form-group">
 									<label class=" control-label">Education</label>
@@ -299,7 +299,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>-->
 							
 							<div class="row">
 								<div class=" col-md-12">
@@ -421,12 +421,16 @@ $(function(){
             },
 			dob: {
                 validators: {
+					notEmpty: {
+								message: 'Date of Birth is required'
+						},
                     date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
                 }
             },
+            
 			phone: {
                  validators: {
 					notEmpty: {
@@ -592,13 +596,15 @@ $(function(){
 				}
             },
 			doj: {
-                 validators: {
-					date: {
+                validators: {
+                   notEmpty: {
+								message: 'Date of Join is required'
+						},
+                    date: {
                         format: 'MM/DD/YYYY',
                         message: 'The value is not a valid date'
                     }
-				
-				}
+                }
             },
 			roll_number: {
                  validators: {
